@@ -12,6 +12,20 @@
   border-radius: 10px;
 }
 
+.admin-scroll::-webkit-scrollbar {
+  width: 20px;
+}
+
+.admin-scroll::-webkit-scrollbar-track {
+  background: #9D9EA0; /* Tailwind gray-200 */
+}
+
+.admin-scroll::-webkit-scrollbar-thumb {
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
