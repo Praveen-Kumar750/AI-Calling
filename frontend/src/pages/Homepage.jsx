@@ -18,10 +18,10 @@ const Homepage = () => {
       <ChatBot />
       <Service />
       <InService />
-      <Features id="features"/>
+      <Features />
       <Contact />
       <BusinessTypes />
-      <ScheduleDemo id="demo" />
+      <ScheduleDemo />
       <Footer />
     </>
   );

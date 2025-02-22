@@ -11,7 +11,7 @@ const InService = () => {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           
           {/* Left Side - Content */}
-          <div className="md:w-1/2">
+          <div className="ml-[120px] md:w-1/2">
             <h2 className="text-4xl font-bold text-purple-400">In-Coming Services:</h2>
             <ul className="mt-6 space-y-3 text-lg text-gray-300">
               <li>🔹 Automated real-time query handling.</li>
@@ -22,8 +22,8 @@ const InService = () => {
               <li>🔹 Scalable for high traffic volumes.</li>
               <li>🔹 Secure and compliant data handling.</li>
             </ul>
-            <button className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md text-lg">
-              Experience more
+            <button className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 cursor-pointer rounded-md text-lg">
+              Experience more →
             </button>
           </div>
   

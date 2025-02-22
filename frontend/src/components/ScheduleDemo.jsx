@@ -16,7 +16,7 @@ const ScheduleDemo = () => {
           <h2 className="text-[40px] font-bold text-white mb-6">
             Schedule a Free <br /> <span className="text-gray-300">Demo</span>
           </h2>
-          <form className="space-y-6">
+          <form className="space-y-2">
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <span>First Name</span>
@@ -60,7 +60,7 @@ const ScheduleDemo = () => {
             </div>
             <button
               type="submit"
-              className="bg-[linear-gradient(180deg,_#A33D90_0%,_#885B80_100%)] text-white text-[15px] px-7 py-2 rounded-md hover:bg-purple-700 transition"
+              className="bg-purple-600 text-white text-2xl font-normal cursor-pointer px-5 py-2 rounded-md hover:bg-purple-700 transition"
             >
               Submit
             </button>
@@ -96,7 +96,7 @@ const ScheduleDemo = () => {
           />
           <button
             type="submit"
-            className="bg-[linear-gradient(90deg,_#9C0480_0%,_#A33D90_100%)] text-white px-4 py-2 rounded-md text-[25px] hover:bg-purple-700 transition"
+            className="bg-purple-600 cursor-pointer text-white px-4 py-2 rounded-md text-[25px] hover:bg-purple-700 transition"
           >
             Notify Me
           </button>

@@ -21,10 +21,10 @@ const Footer = () => {
         <div>
           <h3 className="text-3xl font-semibold">About Us</h3>
           <ul className="mt-2 space-y-2 text-white text-2xl font-light">
-            <li>Home</li>
-            <li>Our Team</li>
-            <li>Our Services</li>
-            <li>Career</li>
+            <li><a href="" className="hover:text-gray-300">Home</a></li>
+            <li><a href="" className="hover:text-gray-300">Our Team</a></li>
+            <li><a href="" className="hover:text-gray-300">Our Services</a></li>
+            <li><a href="" className="hover:text-gray-300">Career</a></li>
           </ul>
         </div>
 
@@ -32,11 +32,11 @@ const Footer = () => {
         <div>
           <h3 className="text-3xl font-semibold">Follow Us</h3>
           <div className="flex space-x-4 mt-2">
-            <FaInstagram style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer" />
-            <FaWhatsapp style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer" />
-            <FaLinkedin style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer" />
-            <FaTwitter style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer" />
-            <FaYoutube style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer" />
+            <FaInstagram style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer hover:text-gray-300" />
+            <FaWhatsapp style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer hover:text-gray-300" />
+            <FaLinkedin style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer hover:text-gray-300" />
+            <FaTwitter style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer hover:text-gray-300" />
+            <FaYoutube style={{ width: "40px", height: "50px" }} className="text-white text-2xl cursor-pointer hover:text-gray-300" />
           </div>
         </div>
       </div>

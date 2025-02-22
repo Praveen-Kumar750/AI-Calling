@@ -37,7 +37,7 @@ const Hero = () => {
           </p>
           <button 
             onClick={handleScrollToDemo} 
-            className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md text-lg"
+            className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md text-xl font-thin cursor-pointer"
           >
             Book a Demo
           </button>
@@ -48,7 +48,6 @@ const Hero = () => {
           <img
             src="https://storage.googleapis.com/jwelleryrnpsoft/Group.png"
             alt="AI Assistant"
-            className="max-w-lg"
           />
         </div>
       </div>

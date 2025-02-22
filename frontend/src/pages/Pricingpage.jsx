@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
+import Navbar from "../components/Navbar";
 
 const Pricingpage = () => {
   return (
+    <>
+    <Navbar></Navbar>
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Left Section */}
@@ -17,9 +20,11 @@ const Pricingpage = () => {
           <p className="text-2xl font-bold mb-1">Rs. 999 <span className="text-lg font-normal">/month</span></p>
           <p className="text-gray-400 mb-6">Ideal for growing businesses</p>
 
-          <button className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition mb-6">
+          <Link to="/">
+          <button className="bg-purple-600 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-purple-700 transition mb-6">
             Book a free demo
           </button>
+          </Link>
 
           <ul className="space-y-2">
             {Array(5).fill("Up to 5,000 AI-powered calls/month").map((item, index) => (
@@ -28,13 +33,6 @@ const Pricingpage = () => {
               </li>
             ))}
           </ul>
-
-          {/* Back to Home Button */}
-          <Link to="/">
-            <button className="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-md">
-              Back to Home
-            </button>
-          </Link>
         </div>
 
         {/* Right Section: Illustration */}
@@ -42,11 +40,12 @@ const Pricingpage = () => {
           <img
             src="https://storage.googleapis.com/jwelleryrnpsoft/Pricing.png"
             alt="Pricing Illustration"
-            className="w-full max-w-sm"
+            className="w-full mt-[30px]"
           />
         </div>
       </div>
     </div>
+    </>
   );
 };
 

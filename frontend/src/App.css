@@ -1,3 +1,17 @@
+/* Add this inside your index.css or App.css */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c8d1e2; /* Tailwind gray-200 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #8b5cf6, #ec4899); /* Tailwind purple-500 */
+  border-radius: 10px;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
