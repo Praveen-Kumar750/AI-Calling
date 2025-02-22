@@ -20,7 +20,7 @@ const BusinessTypes = () => {
         {businesses.map((business, index) => (
           <div 
             key={index} 
-            className=" flex flex-col cursor-pointer items-center w-[180px] h-[130px] bg-[linear-gradient(103.89deg,_rgba(255,255,255,0.25)_0%,_rgba(255,255,255,0.1)_162.2%)] p-6 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+            className=" flex flex-col cursor-pointer items-center w-[180px] h-[130px] bg-[linear-gradient(103.89deg,_rgba(255,255,255,0.25)_0%,_rgba(255,255,255,0.1)_162.2%)] p-6 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-purple-500/50 hover:scale-120">
             {business.icon}
             <p className="mt-2 text-center align-center leading-[17px] font-medium text-lg">{business.name}</p>
           </div>

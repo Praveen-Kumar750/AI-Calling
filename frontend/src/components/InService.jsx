@@ -1,6 +1,20 @@
+
 const InService = () => {
+  const handleScrollToFeatures = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      const demoSection = document.getElementById("features");
+      if (demoSection) {
+        demoSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // Redirect to homepage and scroll after navigation
+      window.location.href = "/#schedule-demo";
+    }
+  };
     return (
       <section className="bg-[#090909] text-white py-16 px-10"
+      
       style={{
         //backgroundImage: "url('https://storage.googleapis.com/jwelleryrnpsoft/image%2013.png')",
         backgroundSize: "cover",
@@ -22,7 +36,7 @@ const InService = () => {
               <li>🔹 Scalable for high traffic volumes.</li>
               <li>🔹 Secure and compliant data handling.</li>
             </ul>
-            <button className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 cursor-pointer rounded-md text-lg">
+            <button onClick={handleScrollToFeatures} className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 cursor-pointer rounded-md text-lg">
               Experience more →
             </button>
           </div>

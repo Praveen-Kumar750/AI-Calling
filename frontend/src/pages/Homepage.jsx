@@ -9,8 +9,21 @@ import BusinessTypes from '../components/BusinessTypes';
 import ScheduleDemo from '../components/ScheduleDemo';
 import Footer from '../components/Footer';
 import ChatBot from '../components/ChatBot';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Homepage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#schedule-demo") {
+      const section = document.getElementById("schedule-demo");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
   return (
     <>
       <Navbar />

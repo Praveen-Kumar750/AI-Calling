@@ -28,7 +28,7 @@ const Contact = () => {
         {services.map((service, index) => (
           <div 
             key={index} 
-            className="p-6 ml-20 cursor-pointer rounded-[20px] transition-shadow w-[380px] duration-300 hover:shadow-lg hover:shadow-purple-500/50 bg-[linear-gradient(103.89deg,_rgba(255,255,255,0.25)_0%,_rgba(255,255,255,0.1)_162.2%)] text-left flex flex-col items-start border-white border-[1px]"
+            className="p-6 ml-20 cursor-pointer rounded-[20px] transition-shadow w-[380px] duration-300 hover:shadow-lg hover:shadow-purple-500/50 bg-[linear-gradient(103.89deg,_rgba(255,255,255,0.25)_0%,_rgba(255,255,255,0.1)_162.2%)] text-left flex flex-col items-start border-white border-[1px] hover:scale-105 "
           >
             {service.icon}
             <h3 className="text-[35px] font-normal mt-4">{service.title}</h3>

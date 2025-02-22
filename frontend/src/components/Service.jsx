@@ -1,4 +1,16 @@
 const Service = () => {
+  const handleScrollToFeatures = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      const demoSection = document.getElementById("features");
+      if (demoSection) {
+        demoSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // Redirect to homepage and scroll after navigation
+      window.location.href = "/#schedule-demo";
+    }
+  };
     return (
       <section className="bg-[#090909] text-white py-16 px-10"
       style={{
@@ -30,7 +42,7 @@ const Service = () => {
               <li>🔹 Secure Data: Advanced encryption and compliance.</li>
               <li>🔹 24/7 Support: Always available, uninterrupted service.</li>
             </ul>
-            <button className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md text-lg cursor-pointer">
+            <button onClick={handleScrollToFeatures} className="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md text-lg cursor-pointer">
               Experience more →
             </button>
           </div>
