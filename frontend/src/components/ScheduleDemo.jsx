@@ -1,11 +1,10 @@
-
 import React from "react";
 
 const ScheduleDemo = () => {
   return (
-    <div className="flex flex-col items-center justify-center bg-black px-6 py-10">
+    <div id="schedule-demo" className="flex flex-col items-center justify-center bg-black px-6 py-10">
         
-      <div className=" w-full grid grid-cols-1 md:grid-cols-2 gap-5 bg-black text-white  rounded-lg"
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 bg-black text-white rounded-lg"
        style={{
         backgroundImage: "url('https://storage.googleapis.com/jwelleryrnpsoft/image%2013.png')",
         backgroundSize: "cover",
@@ -22,43 +21,43 @@ const ScheduleDemo = () => {
               <div>
                 <span>First Name</span>
                 <input
-                type="text"
-                placeholder="Enter your first name"
-                className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
-              />
+                  type="text"
+                  placeholder="Enter your first name"
+                  className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
+                />
               </div>
               <div>
                 <span>Last Name</span>
                 <input
-                type="text"
-                placeholder="Enter your last name"
-                className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
-              />
+                  type="text"
+                  placeholder="Enter your last name"
+                  className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
+                />
               </div>
             </div>
             <div>
-                <span>Email</span>
-                <input
-              type="email"
-              placeholder="Enter your email"
-              className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
-            />
-              </div>
-              <div>
-                <span>Phone Number</span>
-                <input
-              type="tel"
-              placeholder="Enter your phone number"
-              className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
-            />
-              </div>
-              <div>
-                <span>Message</span>
-                <textarea
-              placeholder="Enter your message"
-              className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none h-24"
-            ></textarea>
-              </div>
+              <span>Email</span>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
+              />
+            </div>
+            <div>
+              <span>Phone Number</span>
+              <input
+                type="tel"
+                placeholder="Enter your phone number"
+                className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none"
+              />
+            </div>
+            <div>
+              <span>Message</span>
+              <textarea
+                placeholder="Enter your message"
+                className="p-3 rounded-lg w-full bg-[#FCFCFC] text-black focus:outline-none h-24"
+              ></textarea>
+            </div>
             <button
               type="submit"
               className="bg-[linear-gradient(180deg,_#A33D90_0%,_#885B80_100%)] text-white text-[15px] px-7 py-2 rounded-md hover:bg-purple-700 transition"
@@ -76,16 +75,15 @@ const ScheduleDemo = () => {
           />
         </div>
       </div>
-      {/* Adding a small gap between the two sections */}
-      {/* <div className="h-16 "></div> */}
-      <div className="text-center text-white  w-full"
-      style={{
-        backgroundImage: "url('https://storage.googleapis.com/jwelleryrnpsoft/image%2013.png')",
-        
-        backgroundSize: "cover",
-        backgroundPosition: "left",
-        opacity: 1.2,
-      }}>
+
+      {/* Be the First to Know Section */}
+      <div className="text-center text-white w-full"
+        style={{
+          backgroundImage: "url('https://storage.googleapis.com/jwelleryrnpsoft/image%2013.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "left",
+          opacity: 1.2,
+        }}>
         <h2 className="text-[50px] font-medium mb-2 mt-5">Be the First to Know</h2>
         <p className="mb-4 text-white text-[30px] font-light">
           Sign up to get early access or be notified when Smart Serve AI launches.
@@ -94,7 +92,7 @@ const ScheduleDemo = () => {
           <input
             type="email"
             placeholder="Enter your email"
-            className="p-3 rounded-md w-[400px]  text-white focus:outline-white border-[1px] border-white"
+            className="p-3 rounded-md w-[400px] text-white focus:outline-white border-[1px] border-white"
           />
           <button
             type="submit"

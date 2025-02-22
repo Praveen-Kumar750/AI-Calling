@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 
 const Pricingpage = () => {
@@ -14,7 +15,7 @@ const Pricingpage = () => {
             Personalized responses via calls and messages. Customizable for both outgoing and incoming communications.
           </p>
           <p className="text-2xl font-bold mb-1">Rs. 999 <span className="text-lg font-normal">/month</span></p>
-          <p className="text-gray-400 mb-6">Deal for growing businesses</p>
+          <p className="text-gray-400 mb-6">Ideal for growing businesses</p>
 
           <button className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition mb-6">
             Book a free demo
@@ -27,6 +28,13 @@ const Pricingpage = () => {
               </li>
             ))}
           </ul>
+
+          {/* Back to Home Button */}
+          <Link to="/">
+            <button className="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-md">
+              Back to Home
+            </button>
+          </Link>
         </div>
 
         {/* Right Section: Illustration */}

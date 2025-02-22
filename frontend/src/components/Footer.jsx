@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInstagram, FaWhatsapp, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaLinkedin, FaTwitter, FaYoutube,FaPhoneAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Left Section */}
         <div>
           <h2 className="text-3xl font-semibold flex items-center gap-2">
-            📞 AI Calling
+            <FaPhoneAlt className="text-white" /> <span >AI Calling</span>
           </h2>
           <p className="text-white-400 mt-2 text-[19px] font-light">
             A pioneering tech company driven by innovation, excellence, and a passion for creating cutting-edge solutions.

@@ -41,12 +41,12 @@ const Features = () => {
   ];
 
   return (
-    <section className="bg-black text-white py-16 px-10 flex justify-center">
+    <section id="features" className="bg-black text-white py-16 px-10 flex justify-center">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
         {features.map((feature, index) => (
           <div
             key={index}
-            className=" p-6 rounded-lg transition-shadow flex flex-col items-center justify-center text-center duration-300 hover:shadow-lg hover:shadow-purple-500/50"
+            className="p-6 rounded-lg transition-shadow flex flex-col items-center justify-center text-center duration-300 hover:shadow-lg hover:shadow-purple-500/50"
           >
             {feature.icon}
             <h3 className="text-xl font-semibold text-white-400">{feature.title}</h3>

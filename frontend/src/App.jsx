@@ -2,19 +2,21 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Homepage from './pages/Homepage'
-
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import Pricingpage from "./pages/Pricingpage";
+import Loginpage from "./pages/Loginpage";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    <Homepage/>
-     
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/pricing" element={<Pricingpage />} />
+        <Route path="/login" element={<Loginpage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
