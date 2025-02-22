@@ -10,6 +10,8 @@ import OutgoingCalls from "./client/OutgoingCalls";
 import OutgoingMessages from "./client/OutgoingMessages";
 import BillingTableCalls from "./client/BillingTableCalls";
 import BillingTableMessages from "./client/BillingTableMessages";
+import FileUpload from "./client/FileUpload";
+import PreviousData from "./client/PreviousData";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/incoming-messages" element={<IncomingMessages />} />
         <Route path="/outgoing-messages" element={<OutgoingMessages />} />
         <Route path="/billing-messages" element={<BillingTableMessages />} />
+        <Route path="/file-upload" element={<FileUpload />} />
+        <Route path="/previous-data" element={<PreviousData />} />
       </Routes>
     </Router>
   );

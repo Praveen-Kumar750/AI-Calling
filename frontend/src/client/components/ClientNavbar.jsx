@@ -4,7 +4,7 @@ const ClientNavbar = () => {
   return (
     <>
     <nav className="flex justify-between items-center p-4 bg-gray-800">
-    <h1 className="text-[30px] font-bold">Ai Calling</h1>
+    <h1 className="text-[30px] font-bold text-white">Ai Calling</h1>
     <div className="space-x-6">
       <a href="#" className="text-gray-300 text-[30px] hover:text-white">Dashboard</a>
       <a href="#" className="text-gray-300 text-[30px] hover:text-white">Incoming</a>
