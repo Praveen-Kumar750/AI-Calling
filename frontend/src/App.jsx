@@ -9,6 +9,11 @@ import InService from './components/InService'
 import Features from './components/Features'
 import Contact from './components/Contact'
 import BusinessTypes from './components/BusinessTypes'
+import ScheduleDemo from './components/ScheduleDemo'
+import Footer from './components/Footer'
+import Pricing from './components/Pricing'
+import Login from './components/Login'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +27,11 @@ function App() {
       <Features />
       <Contact />
       <BusinessTypes />
+      <ScheduleDemo/>
+      <Footer/>
+      <Pricing/>
+      <Login/>
+     
     </>
   )
 }
