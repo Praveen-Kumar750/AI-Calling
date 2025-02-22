@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 
-const Pricing = () => {
+const Pricingpage = () => {
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -42,4 +42,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Pricingpage;
