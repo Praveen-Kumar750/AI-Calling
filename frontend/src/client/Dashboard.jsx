@@ -1,6 +1,7 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, BarChart, Bar, CartesianGrid } from "recharts";
-import { FaArrowUp } from "react-icons/fa";
+
+import ClientNavbar from "./components/ClientNavbar";
 const Dashboard = () => {
   const callVolumeData = [
     { name: "Jan", outgoing: 2000, incoming: 1000 },
@@ -25,16 +26,7 @@ const Dashboard = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Navbar */}
-      <nav className="flex justify-between items-center p-4 bg-gray-800">
-        <h1 className="text-xl font-bold">Ai Calling</h1>
-        <div className="space-x-6">
-          <a href="#" className="text-gray-300 hover:text-white">Dashboard</a>
-          <a href="#" className="text-gray-300 hover:text-white">Incoming</a>
-          <a href="#" className="text-gray-300 hover:text-white">Outgoing</a>
-          <a href="#" className="text-gray-300 hover:text-white">Billing</a>
-        </div>
-        <button className="bg-purple-600 px-4 py-2 rounded-[100px] flex gap-2 text-white text-xl hover:bg-purple-700">Data <FaArrowUp className="text-xl text-white mt-1 " /></button>
-      </nav>
+      <ClientNavbar/>
 
       {/* Analytics Dashboard */}
       <div className="p-6">

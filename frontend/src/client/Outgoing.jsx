@@ -14,7 +14,7 @@ const callData = Array(10).fill({
   transactionAuth: "Free",
 });
 
-const Incoming = () => {
+const Outgoing = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
@@ -36,7 +36,7 @@ const Incoming = () => {
       {/* Navbar */}
    <ClientNavbar/>
 
-      <h2 className="text-2xl font-bold mt-6">INCOMING</h2>
+      <h2 className="text-2xl font-bold mt-6">OUTGOING</h2>
 
       {/* Filters */}
       <div className="flex items-center justify-between mt-4">
@@ -134,4 +134,4 @@ const Incoming = () => {
   );
 };
 
-export default Incoming;
+export default Outgoing;

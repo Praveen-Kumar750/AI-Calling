@@ -5,6 +5,8 @@ import Pricingpage from "./pages/Pricingpage";
 import Loginpage from "./pages/Loginpage";
 import Dashboard from './client/Dashboard';
 import Incoming from './client/Incoming';
+import Outgoing from './client/Outgoing';
+
 function App() {
   return (
     // <Router>
@@ -16,7 +18,10 @@ function App() {
     // </Router>
     <>
     {/* <Dashboard /> */}
-    <Incoming />
+    {/* <Incoming /> */}
+    {/* <Outgoing/> */}
+   
+    
     </>
   );
 }
