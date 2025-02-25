@@ -21,20 +21,7 @@ const IncomingMessages = () => {
   const handleCallHistory=()=>{
     navigate('/incoming-calls');
 }
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const rowsPerPage = 5;
 
-  // const sortedData = [...callData].sort((a, b) => 
-  //   sortOrder === "asc"
-  //     ? a.contactNo.localeCompare(b.contactNo)
-  //     : b.contactNo.localeCompare(a.contactNo)
-  // );
-
-  // const totalPages = Math.ceil(sortedData.length / rowsPerPage);
-  // const paginatedData = sortedData.slice(
-  //   (currentPage - 1) * rowsPerPage,
-  //   currentPage * rowsPerPage
-  // );
 
   return (
     <div className="bg-gray-900 text-white min-h-screen p-6">
@@ -112,36 +99,7 @@ const IncomingMessages = () => {
 </div>
 
 
-    {/* Pagination */}
-    {/* <div className="flex justify-center items-center space-x-2 mt-4">
-      <button
-        className="p-2 bg-gray-700 rounded-md disabled:opacity-50"
-        disabled={currentPage === 1}
-        onClick={() => setCurrentPage(currentPage - 1)}
-      >
-        <FaArrowLeft />
-      </button>
-
-      {[...Array(totalPages)].map((_, index) => (
-        <button
-          key={index}
-          className={`px-3 py-1 rounded-md ${
-            currentPage === index + 1 ? "bg-pink-600 text-white" : "bg-gray-700"
-          }`}
-          onClick={() => setCurrentPage(index + 1)}
-        >
-          {index + 1}
-        </button>
-      ))}
-
-      <button
-        className="p-2 bg-gray-700 rounded-md disabled:opacity-50"
-        disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(currentPage + 1)}
-      >
-        <FaArrowRight />
-      </button>
-    </div> */}
+   
   </div>
   );
 };
