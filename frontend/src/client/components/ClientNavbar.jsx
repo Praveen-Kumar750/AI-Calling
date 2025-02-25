@@ -1,30 +1,88 @@
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowUp } from "react-icons/fa";
+
+
+
+
+
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowUp, FaUserCircle } from "react-icons/fa";
 
 const ClientNavbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const navItems = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Incoming", path: "/incoming-calls" },
+    { name: "Outgoing", path: "/outgoing-calls" },
+    { name: "Billing", path: "/billing-calls" }
+  ];
+
+  // Mocked login time (replace with real data)
+  const totalLoginTime = "2h 45m";
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-800">
-      <h1 className="text-[30px] font-bold text-white">Ai Calling</h1>
-      <div className="space-x-6">
-        <button onClick={() => navigate('/dashboard')} className="text-gray-300 text-[30px] hover:text-white">Dashboard</button>
-        <button onClick={() => navigate('/incoming-calls')} className="text-gray-300 text-[30px] hover:text-white">Incoming</button>
-        <button onClick={() => navigate('/outgoing-calls')} className="text-gray-300 text-[30px] hover:text-white">Outgoing</button>
-        <button onClick={() => navigate('/billing-calls')} className="text-gray-300 text-[30px] hover:text-white">Billing</button>
-      </div>
-      {/* <button className="bg-purple-600 px-4 py-2 rounded-[100px] flex gap-2 text-white text-xl hover:bg-purple-700">
-        Data <FaArrowUp className="text-xl text-white mt-1 " />
-      </button> */}
-
-      <button 
-        onClick={() => navigate('/file-upload')} 
-        className="bg-purple-600 px-4 py-2 rounded-[100px] flex gap-2 text-white text-xl hover:bg-purple-700"
+    <nav className="flex justify-between items-center p-4 bg-gray-800 relative">
+      {/* Title */}
+      <h1 
+        className="text-[30px] font-bold text-white cursor-pointer"
+        onClick={() => navigate('/')}
       >
-        Data <FaArrowUp className="text-xl text-white mt-1" />
-      </button>
+        Ai Calling
+      </h1>
+
+      {/* Navigation Links */}
+      <div className="space-x-6">
+        {navItems.map(({ name, path }) => (
+          <button
+            key={path}
+            onClick={() => navigate(path)}
+            className={`text-[30px] px-2 ${
+              location.pathname === path 
+                ? "text-white underline" 
+                : "text-gray-300 hover:text-white"
+            }`}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
+
+      {/* Upload Button & Profile Icon */}
+      <div className="flex gap-6 items-center relative">
+        <button 
+          onClick={() => navigate('/file-upload')} 
+          className="bg-purple-600 px-4 py-2 rounded-[100px] flex gap-2 text-white text-xl hover:bg-purple-700"
+        >
+          Data <FaArrowUp className="text-xl text-white mt-1" />
+        </button>
+
+        {/* Profile Icon */}
+        <div className="relative">
+          <FaUserCircle 
+            className="text-white text-5xl cursor-pointer hover:text-gray-400"
+            onClick={() => setShowDropdown(!showDropdown)}
+          />
+
+          {/* Dropdown Menu */}
+          {showDropdown && (
+            <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
+              <p className="px-4 py-2 text-gray-800">Total Login Time: {totalLoginTime}</p>
+              <button 
+                className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200"
+                onClick={() => {
+                  setShowDropdown(false);
+                  alert("Logged out! (Replace with real logout function)");
+                }}
+              >
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };
