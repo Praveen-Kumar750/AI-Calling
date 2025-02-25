@@ -12,6 +12,8 @@ import BillingTableCalls from "./client/BillingTableCalls";
 import BillingTableMessages from "./client/BillingTableMessages";
 import FileUpload from "./client/FileUpload";
 import PreviousData from "./client/PreviousData";
+import Dashboardincoming from "./client/Dashboardincoming";
+import Dashboardoutgoing from "./client/Dashboardoutgoing";
 
 function App() {
   return (
@@ -20,7 +22,12 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/pricing" element={<Pricingpage />} />
         <Route path="/login" element={<Loginpage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+
+        <Route path="/dashboard" element={<Dashboard key="dashboard" />} />
+        <Route path="/dashboard-incoming" element={<Dashboardincoming key="dashboard-incoming" />} />
+        <Route path="/dashboard-outgoing" element={<Dashboardoutgoing key="dashboard-outgoing" />} />
+        
         <Route path="/incoming-calls" element={<IncomingCalls />} />
         <Route path="/outgoing-calls" element={<OutgoingCalls />} />
         <Route path="/billing-calls" element={<BillingTableCalls />} />
@@ -29,9 +36,16 @@ function App() {
         <Route path="/billing-messages" element={<BillingTableMessages />} />
         <Route path="/file-upload" element={<FileUpload />} />
         <Route path="/previous-data" element={<PreviousData />} />
+        {/* <Route path="/dashboard-incoming" element={<Dashboardincoming/>} />
+        <Route path="/dashboard-outgoing" element={<Dashboardoutgoing/>} /> */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+
+
+
+
