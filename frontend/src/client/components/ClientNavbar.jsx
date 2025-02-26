@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowUp, FaUserCircle } from "react-icons/fa";
@@ -15,8 +9,8 @@ const ClientNavbar = () => {
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard" },
-    { name: "Incoming", path: "/incoming-calls" },
-    { name: "Outgoing", path: "/outgoing-calls" },
+    { name: "Incoming", path: "/incoming-calls" }, // Default to Calls page
+    { name: "Outgoing", path: "/outgoing-calls" }, // Default to Calls page
     { name: "Billing", path: "/billing-calls" }
   ];
 
@@ -34,14 +28,18 @@ const ClientNavbar = () => {
       </h1>
 
       {/* Navigation Links */}
-      <div className="space-x-6">
+      <div className="flex space-x-6">
         {navItems.map(({ name, path }) => (
           <button
             key={path}
             onClick={() => navigate(path)}
-            className={`text-[30px] px-2 ${
-              location.pathname === path 
-                ? "text-white underline" 
+            className={`text-[30px] cursor-pointer px-2 ${
+              (name === "Incoming" && location.pathname.startsWith("/incoming-")) ||
+              (name === "Outgoing" && location.pathname.startsWith("/outgoing-")) ||
+              (name === "Billing" && location.pathname.startsWith("/billing-")) ||
+              (name === "Dashboard" && location.pathname.startsWith("/dashboard")) ||
+              location.pathname === path
+                ? "text-white underline"
                 : "text-gray-300 hover:text-white"
             }`}
           >

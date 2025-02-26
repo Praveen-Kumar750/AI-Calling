@@ -44,7 +44,7 @@ const Dashboardoutgoing = () => {
           <div className="space-x-4">
             <button
               onClick={() => navigate("/dashboard")}
-              className={`px-4 py-2 rounded-md ${
+              className={`px-4 py-2 cursor-pointer rounded-md ${
                 location.pathname === "/dashboard" ? "bg-white text-black" : "bg-gray-700"
               }`}
             >
@@ -52,7 +52,7 @@ const Dashboardoutgoing = () => {
             </button>
             <button
               onClick={() => navigate("/dashboard-outgoing")}
-              className={`px-4 py-2 rounded-md ${
+              className={`px-4 py-2 cursor-pointer rounded-md ${
                 location.pathname === "/dashboard-outgoing" ? "bg-white text-black" : "bg-gray-700"
               }`}
             >
@@ -60,17 +60,17 @@ const Dashboardoutgoing = () => {
             </button>
             <button
               onClick={() => navigate("/dashboard-incoming")}
-              className={`px-4 py-2 rounded-md ${
+              className={`px-4 py-2 cursor-pointer rounded-md ${
                 location.pathname === "/dashboard-incoming" ? "bg-white text-black" : "bg-gray-700"
               }`}
             >
               Incoming
             </button>
           </div>
-          <select className="bg-white px-4 py-2 rounded-md text-black">
+          {/* <select className="bg-white px-4 py-2 rounded-md text-black">
             <option>Last 7 days</option>
             <option>Last 30 days</option>
-          </select>
+          </select> */}
         </div>
 
         {/* Stats Cards */}
