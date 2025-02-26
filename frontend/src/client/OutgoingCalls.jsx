@@ -104,56 +104,7 @@ const OutgoingCalls = () => {
             </button>
           </div>
 
-          {/* Sort Button with Dropdown */}
-          {/* <div className="relative">
-          <button
-            className="bg-gray-800 text-white px-4 py-2 w-[100px] rounded-md cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            Sort <FaSort className="ml-2" />
-          </button>
-
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-md z-10">
-              {columnOptions.map((col) => (
-                <button
-                  key={col.key}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-700"
-                  onClick={() => handleSort(col.key)}
-                >
-                  {col.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div> */}
-
-          {/* <div>
-            <select
-              onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
-            >
-              <option value="">Sort</option>
-              <option value="contact">Last 7 days</option>
-              <option value="contact">Last 30 days</option>
-              <option value="date">Date</option>
-              <option value="duration">Time Duration</option>
-              <option value="service">Service Type</option>
-              <option value="sessionCost">Session Cost</option>
-              <option value="serverCost">Server Cost</option>
-              <option value="charge">Total Charge</option>
-              <option value="reference">Reference Number</option>
-              {columnOptions.map((col) => (
-                <option
-                  key={col.key}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-700"
-                  onClick={() => handleSort(col.key)}
-                >
-                  {col.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
+      
         </div>
 
         <div className="flex justify-between items-center mb-4 mt-4">
@@ -246,6 +197,9 @@ const OutgoingCalls = () => {
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
                     {row.timeDuration}
                   </td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
+                    {row.conversationTopics}
+                  </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">
                     {row.conversationRaw}
                   </td>
@@ -262,8 +216,8 @@ const OutgoingCalls = () => {
                     {row.feedback}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.transferToAuthority}
-                  </td>
+                  {row.transferToAuthority || "N/A"}
+                </td>
                 </tr>
               ))}
             </tbody>
