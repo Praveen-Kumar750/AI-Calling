@@ -247,6 +247,9 @@ const OutgoingMessages = () => {
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
                     {row.timeDuration}
                   </td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
+                    {row.conversationTopics}
+                  </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">
                     {row.conversationRaw}
                   </td>
