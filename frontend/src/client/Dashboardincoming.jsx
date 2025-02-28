@@ -14,13 +14,13 @@ const Dashboardincoming = () => {
   const location = useLocation(); // Get the current URL path
 
   const callVolumeData = [
-    { name: "Jan", outgoing: 2000, incoming: 1000 },
-    { name: "Feb", outgoing: 4500, incoming: 3000 },
-    { name: "Mar", outgoing: 9000, incoming: 8000 },
-    { name: "Apr", outgoing: 3000, incoming: 4000 },
-    { name: "May", outgoing: 4000, incoming: 5000 },
-    { name: "Jun", outgoing: 3500, incoming: 4500 },
-    { name: "Jul", outgoing: 4000, incoming: 4200 },
+    { name: "Jan", incoming: 1000 },
+    { name: "Feb", incoming: 3000 },
+    { name: "Mar", incoming: 8000 },
+    { name: "Apr", incoming: 4000 },
+    { name: "May", incoming: 5000 },
+    { name: "Jun", incoming: 4500 },
+    { name: "Jul", incoming: 4200 },
   ];
 
   const costData = [
@@ -105,7 +105,7 @@ const Dashboardincoming = () => {
               <XAxis dataKey="name" stroke="white" />
               <YAxis stroke="white" />
               <Tooltip />
-              <Line type="monotone" dataKey="outgoing" stroke="#4F46E5" />
+              {/* <Line type="monotone" dataKey="outgoing" stroke="#4F46E5" /> */}
               <Line type="monotone" dataKey="incoming" stroke="red" />
             </LineChart>
           </div>
