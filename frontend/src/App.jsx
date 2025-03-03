@@ -14,7 +14,7 @@ import FileUpload from "./client/FileUpload";
 import PreviousData from "./client/PreviousData";
 import Dashboardincoming from "./client/Dashboardincoming";
 import Dashboardoutgoing from "./client/Dashboardoutgoing";
-
+import Register from "./pages/Register";
 function App() {
   return (
     <Router>
@@ -22,6 +22,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/pricing" element={<Pricingpage />} />
         <Route path="/login" element={<Loginpage />} />
+        <Route path="/register" element={<Register />} />
         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
 
         <Route path="/dashboard" element={<Dashboard key="dashboard" />} />

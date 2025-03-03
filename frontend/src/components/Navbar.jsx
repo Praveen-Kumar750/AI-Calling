@@ -1,8 +1,23 @@
 import { FaPhoneAlt } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in (e.g., by checking token in localStorage)
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token); // Convert to boolean
+  }, [location.pathname]); // Update when route changes
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear authentication token
+    setIsAuthenticated(false);
+    navigate("/login"); // Redirect to login page
+  };
 
   const handleScrollToDemo = (e) => {
     e.preventDefault();
@@ -12,7 +27,6 @@ const Navbar = () => {
         demoSection.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Redirect to homepage and scroll after navigation
       window.location.href = "/#schedule-demo";
     }
   };
@@ -25,13 +39,12 @@ const Navbar = () => {
         demoSection.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Redirect to homepage and scroll after navigation
-      window.location.href = "/#schedule-demo";
+      window.location.href = "/#features";
     }
   };
 
   return (
-    <nav className=" fixed top-0 left-0 w-[100%] z-50 bg-black text-white p-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 w-[100%] z-50 bg-black text-white p-4 flex justify-between items-center">
       {/* Left Side - Logo */}
       <div className="flex items-center space-x-2">
         <FaPhoneAlt className="text-white" />
@@ -42,7 +55,18 @@ const Navbar = () => {
       <div className="hidden md:flex space-x-6 text-white px-4 py-2 rounded-md">
         <span onClick={handleScrollToFeatures} className="hover:text-gray-300 cursor-pointer text-2xl font-thin">Features</span>
         <Link to="/pricing" className="hover:text-gray-300 text-2xl font-thin">Pricing</Link>
-        <Link to="/login" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
+
+        {isAuthenticated ? (
+          <button 
+            onClick={handleLogout} 
+            className="bg-pink-600 hover:bg-pink-700 text-white cursor-pointer px-4 py-2 rounded-md text-xl font-thin"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
+        )}
+
         <button 
           onClick={handleScrollToDemo} 
           className="bg-pink-600 hover:bg-pink-700 text-white cursor-pointer px-4 py-2 rounded-md text-xl font-thin"

@@ -289,24 +289,56 @@ import ClientNavbar from "./components/ClientNavbar";
 const FileUpload = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
+  const [callingData, setCallingData] = useState({
+    dataEntry: "",
+    contactEntry: "",
+    authorityContact: "",
+    dataEntryFile: null,  // Store files
+    contactEntryFile: null,
+    authorityContactFile: null
+  });
+  
+  const [messageData, setMessageData] = useState({
+    dataEntry: "",
+    contactEntry: "",
+    authorityContact: "",
+    dataEntryFile: null,
+    contactEntryFile: null,
+  });
+  
+  const [useSameForText, setUseSameForText] = useState({
+    dataEntry: false,
+    contactEntry: false,
+    authorityContact: false,
+  });
 
   return (
     <div className="relative">
       <ClientNavbar />
 
-      {/* Main Content with Blur Effect */}
-      <div
-        className={`min-h-screen bg-gray-900 text-white  p-6 transition duration-300 ${
-          isModalOpen || isDoneModalOpen ? "blur-md" : ""
-        }`}
-      >
+      <div className="min-h-screen bg-gray-900 text-white p-6">
         <h1 className="text-4xl font-bold text-center mb-10">FILE UPLOAD</h1>
 
-        {/* Flex layout for sections */}
         <div className="flex justify-center items-start gap-10">
-          <IncomingService />
-          <div className="border-l-2 border-gray-400 h-auto self-stretch"></div>
-          <OutgoingService />
+        <IncomingService 
+  callingData={callingData} 
+  setCallingData={setCallingData} 
+  messageData={messageData} 
+  setMessageData={setMessageData} 
+  useSameForText={useSameForText} 
+  setUseSameForText={setUseSameForText} 
+/>
+
+<OutgoingService 
+  callingData={callingData} 
+  setCallingData={setCallingData} 
+  messageData={messageData} 
+  setMessageData={setMessageData} 
+  useSameForText={useSameForText} 
+  setUseSameForText={setUseSameForText} 
+/>
+
+
         </div>
 
         <div className="mt-10 flex justify-center">
@@ -414,123 +446,217 @@ const DoneModal = ({ onClose, onViewDetails }) => {
   );
 };
 
-const IncomingService = () => {
+const IncomingService = ({ callingData, setCallingData, messageData, setMessageData, useSameForText, setUseSameForText }) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-center underline">
-        INCOMING SERVICE
-      </h2>
+      <h2 className="text-2xl font-bold text-center underline">INCOMING SERVICE</h2>
       <div className="flex justify-center space-x-14 mt-6">
-        <CallingSection />
-        <TextSection />
+        <CallingSection 
+          callingData={callingData} 
+          setCallingData={setCallingData} 
+          useSameForText={useSameForText} 
+          setUseSameForText={setUseSameForText} 
+        />
+        <TextSection 
+          messageData={messageData} 
+          setMessageData={setMessageData} 
+        />
       </div>
     </div>
   );
 };
 
-const OutgoingService = () => {
+const OutgoingService =({ callingData, setCallingData, messageData, setMessageData, useSameForText, setUseSameForText }) => {
+
   return (
     <div>
-      <h2 className="text-2xl font-bold text-center underline">
-        OUTGOING SERVICE
-      </h2>
+      <h2 className="text-2xl font-bold text-center underline">OUTGOING SERVICE</h2>
       <div className="flex justify-center space-x-14 mt-6">
-        <CallingSection />
-        <TextSection />
+        <CallingSection 
+          callingData={callingData} 
+          setCallingData={setCallingData} 
+          useSameForText={useSameForText} 
+          setUseSameForText={setUseSameForText} 
+        />
+        <TextSection 
+          messageData={messageData} 
+          setMessageData={setMessageData} 
+        />
       </div>
     </div>
   );
 };
 
-const CallingSection = () => {
+
+
+
+
+
+
+
+const CallingSection = ({ callingData, setCallingData, useSameForText, setUseSameForText }) => {
+  const handleToggle = (field) => {
+    const newState = !useSameForText[field];
+  
+    setUseSameForText({
+      ...useSameForText,
+      [field]: newState,
+    });
+  
+    if (newState) {
+      // Copy text and file from callingData to messageData
+      setMessageData((prevData) => ({
+        ...prevData,
+        [field]: callingData[field],  // Copy text
+        [`${field}File`]: callingData[`${field}File`] // Copy file
+      }));
+    } else {
+      // Reset messageData if unchecked
+      setMessageData((prevData) => ({
+        ...prevData,
+        [field]: "",
+        [`${field}File`]: null
+      }));
+    }
+  };
+  
+
   return (
-    <div className="">
+    <div>
       <h3 className="text-xl font-semibold mb-4">CALLING</h3>
 
       {/* Data Entry Row */}
       <div className="flex items-center justify-between">
-        <div className="flex-1">
-          <FileInput label="Data Entry" acceptOnly="pdf" />
-        </div>
-        <div className="pt-[17px]"><Toggle label="Same for Text" /></div>
+        <FileInput 
+          label="Data Entry" 
+          acceptOnly="pdf"
+          file={callingData.dataEntryFile}
+          setFile={(file) => setCallingData({ ...callingData, dataEntryFile: file })}
+        />
+        <Toggle 
+          label="Same for Text" 
+          isOn={useSameForText.dataEntry} 
+          onToggle={() => handleToggle("dataEntry")}
+        />
       </div>
 
       {/* Contact Entry Row */}
       <div className="flex items-center justify-between">
-        <div className="flex-1">
-          <FileInput label="Contact Entry" acceptOnly="csv,doc,docx" />
-        </div>
-        <div className="pt-[17px]"><Toggle label="Same for Text" /></div>
+        <FileInput 
+          label="Contact Entry" 
+          acceptOnly="csv,doc,docx"
+          file={callingData.contactEntryFile}
+          setFile={(file) => setCallingData({ ...callingData, contactEntryFile: file })}
+        />
+        <Toggle 
+          label="Same for Text" 
+          isOn={useSameForText.contactEntry} 
+          onToggle={() => handleToggle("contactEntry")}
+        />
       </div>
 
       {/* Authority Contact Row */}
-        <div className="flex items-center justify-between">
-        <div className="flex-1">
-        <ManualInput label="Authority Contact" />
+      <div className="flex items-center justify-between">
+        <div>
+          <ManualInput 
+            label="Authority Contact"
+            value={callingData.authorityContact}
+            onChange={(e) => setCallingData({ ...callingData, authorityContact: e.target.value })}
+          />
+          <ManualInput 
+            value={callingData.authorityContact}
+            onChange={(e) => setCallingData({ ...callingData, authorityContact: e.target.value })}
+          />
+          <FileInput 
+            label="Authority Contact File" 
+            acceptOnly="csv,doc,docx"
+            file={callingData.authorityContactFile}
+            setFile={(file) => setCallingData({ ...callingData, authorityContactFile: file })}
+          />
         </div>
-        <div className="pt-[17px]"><Toggle label="Same for Text" /></div>
+        <Toggle 
+          label="Same for Text" 
+          isOn={useSameForText.authorityContact} 
+          onToggle={() => handleToggle("authorityContact")}
+        />
       </div>
-      {/* </div> */}
-      <div className="">
-        <ManualInput />
-        <FileInput label="Authority Contact File" acceptOnly="csv,doc,docx"/>
-      </div>
-
-      {/* Submit Button */}
+      
       <SubmitButton />
     </div>
   );
 };
 
-const TextSection = () => {
+
+
+
+const TextSection = ({ messageData, setMessageData }) => {
   return (
-    <div className="">
+    <div>
       <h3 className="text-xl font-semibold mb-4">MESSAGE</h3>
 
       {/* Data Entry */}
-      <FileInput label="Data Entry" acceptOnly="pdf"/>
+      <FileInput 
+        label="Data Entry" 
+        acceptOnly="pdf"
+        file={messageData.dataEntryFile}
+        setFile={(file) => setMessageData({ ...messageData, dataEntryFile: file })}
+      />
 
       {/* Contact Entry */}
-      <FileInput label="Contact Entry" acceptOnly="csv,doc,docx"/>
+      <FileInput 
+        label="Contact Entry" 
+        acceptOnly="csv,doc,docx"
+        file={messageData.contactEntryFile}
+        setFile={(file) => setMessageData({ ...messageData, contactEntryFile: file })}
+      />
 
       {/* Authority Contact */}
-      <ManualInput label="Authority Contact" />
-      <div className="mt-[23px]">
-      <ManualInput />
-      <FileInput label="Authority Contact File" acceptOnly="csv,doc,docx"/>
-      </div>
+      <ManualInput 
+        label="Authority Contact"
+        value={messageData.authorityContact}
+        onChange={(e) => setMessageData({ ...messageData, authorityContact: e.target.value })}
+      />
+      <ManualInput 
+        
+        value={messageData.authorityContact}
+        onChange={(e) => setMessageData({ ...messageData, authorityContact: e.target.value })}
+      />
+      <FileInput 
+        label="Authority Contact File" 
+        acceptOnly="csv,doc,docx"
+        file={messageData.authorityContactFile}
+        setFile={(file) => setMessageData({ ...messageData, authorityContactFile: file })}
+      />
 
-        <SubmitButton />
+      <SubmitButton />
     </div>
   );
 };
 
-const FileInput = ({ label, acceptOnly }) => {
-    const [fileName, setFileName] = useState("No file chosen");
-      const [error, setError] = useState("");
-    
-      const handleFileChange = (event) => {
-        const file = event.target.files[0];
-    
-        if (file) {
-          const fileExtension = file.name.split(".").pop().toLowerCase();
-          const allowedExtensions = acceptOnly.split(",");
-    
-          if (!allowedExtensions.includes(fileExtension)) {
-            setError(
-              `Invalid file type! Only ${acceptOnly.toUpperCase()} allowed.`
-            );
-            setFileName("No file chosen");
-            return;
-          }
-    
-          setError("");
-          setFileName(file.name);
-        }
-      };
+
+
+const FileInput = ({ label, acceptOnly, file, setFile }) => {
+  const [fileName, setFileName] = useState(file ? file.name : "No file chosen");
+
+  const handleFileChange = (event) => {
+    const newFile = event.target.files[0];
+    if (newFile) {
+      const fileExtension = newFile.name.split(".").pop().toLowerCase();
+      const allowedExtensions = acceptOnly.split(",");
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        alert(`Invalid file type! Only ${acceptOnly.toUpperCase()} allowed.`);
+        return;
+      }
+
+      setFile(newFile);  // Update parent state
+      setFileName(newFile.name);
+    }
+  };
+
   return (
     <div className="mb-4 max-w-[250px]">
-      {label==="Authority Contact File"?"":<label className="block mb-2 text-white">{label}</label>}
+      <label className="block mb-2 text-white">{label}</label>
       <div className="flex items-center bg-white p-2 rounded-lg shadow-md w-full">
         <label className="bg-[#9C0480] text-white px-2 py-2 rounded-lg cursor-pointer min-w-[120px] text-center">
           Choose File
@@ -540,10 +666,11 @@ const FileInput = ({ label, acceptOnly }) => {
           {fileName}
         </span>
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 };
+
+
 
 const ManualInput = ({ label }) => {
   return (
@@ -558,26 +685,25 @@ const ManualInput = ({ label }) => {
   );
 };
 
-const Toggle = ({ label }) => {
-  const [isOn, setIsOn] = useState(false);
-
+const Toggle = ({ label, isOn, onToggle }) => {
   return (
     <div className="flex flex-col mt-2 items-center">
       {/* Toggle Button */}
       <button
-        onClick={() => setIsOn(!isOn)}
+        onClick={onToggle} // Use the passed `onToggle` function
         className={`w-6 h-6 rounded-md cursor-pointer transition-colors duration-300 ${
           isOn ? "bg-green-500" : "bg-gray-400"
         }`}
       ></button>
 
-      {/* Label below the button (on a single line) */}
-      <span className="text-gray-300 text-[12px] whitespace-nowrap ml-1 ">
+      {/* Label below the button */}
+      <span className="text-gray-300 text-[12px] whitespace-nowrap ml-1">
         {label}
       </span>
     </div>
   );
 };
+
 
 const SubmitButton = () => {
   return (
