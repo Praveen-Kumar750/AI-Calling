@@ -65,7 +65,7 @@ const Loginpage = () => {
 
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white p-3 rounded-md hover:bg-purple-700 transition"
+            className="w-full bg-purple-600 text-white p-3 rounded-md hover:bg-purple-700 transition cursor-pointer"
           >
             Login
           </button>
@@ -73,7 +73,7 @@ const Loginpage = () => {
           {showRegister && (
             <button
               onClick={() => navigate("/register")}
-              className="w-full bg-blue-600 text-white p-3 rounded-md mt-4 hover:bg-blue-700 transition"
+              className="w-full bg-blue-600 text-white p-3 rounded-md mt-4 hover:bg-blue-700 transition cursor-pointer"
             >
               Register
             </button>

@@ -56,7 +56,7 @@ const Navbar = () => {
         <span onClick={handleScrollToFeatures} className="hover:text-gray-300 cursor-pointer text-2xl font-thin">Features</span>
         <Link to="/pricing" className="hover:text-gray-300 text-2xl font-thin">Pricing</Link>
 
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <button 
             onClick={handleLogout} 
             className="bg-pink-600 hover:bg-pink-700 text-white cursor-pointer px-4 py-2 rounded-md text-xl font-thin"
@@ -65,7 +65,9 @@ const Navbar = () => {
           </button>
         ) : (
           <Link to="/login" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
-        )}
+        )} */}
+
+<Link to="/login" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
 
         <button 
           onClick={handleScrollToDemo} 

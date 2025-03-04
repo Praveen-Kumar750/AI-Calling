@@ -141,7 +141,9 @@ const ClientNavbar = () => {
   const handleLogout = () => {
     setShowDropdown(false);
     sessionStorage.removeItem("loginDateTime");
-    alert("Logged out! (Replace with real logout function)");
+    localStorage.removeItem("token");
+    navigate("/");
+    // alert("Logged out! (Replace with real logout function)");
   };
 
   return (

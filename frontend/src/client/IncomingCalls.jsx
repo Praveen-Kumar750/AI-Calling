@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ClientNavbar from "./components/ClientNavbar";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
-const initialCallData = Array(10).fill({
-  contactNo: "980000000000",
-  date: "01-01-2000",
-  timeDuration: "10:10:10",
-  conversationRaw: "View Full Chat",
-  conversationSummary: "View Summary",
-  keyPoints: "Key points",
-  conversationType: "Unsatisfied",
-  feedback: "Angry",
-  transferToAuthority: "Free",
-});
+// const initialCallData = Array(10).fill({
+//   contactNo: "980000000000",
+//   date: "01-01-2000",
+//   timeDuration: "10:10:10",
+//   conversationRaw: "View Full Chat",
+//   conversationSummary: "View Summary",
+//   conversationKeyPoints: "Key points",
+//   conversationType: "Unsatisfied",
+//   contactFeedback: "Angry",
+//   transferToAuthority: "Free",
+// });
 
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
@@ -30,12 +31,21 @@ const columnOptions = [
 
 const IncomingCalls = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [callData, setCallData] = useState(initialCallData);
+  const [callData, setCallData] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(null); // Start date filter
   const [endDate, setEndDate] = useState(null); // End date filter
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:5000/api/incoming-calls");
+      console.log(response.data);
+      setCallData(response.data);
+    };
+    fetchData();
+  }, []);
+  
   // Modify Dates Randomly (For Testing)
   const modifyDates = () => {
     setData((prevData) =>
@@ -238,7 +248,8 @@ const IncomingCalls = () => {
                     {row.contactNo}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.date}
+                    {/* {row.date} */}
+                    {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
                     {row.timeDuration}
@@ -250,13 +261,13 @@ const IncomingCalls = () => {
                     {row.conversationSummary}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.keyPoints}
+                    {row.conversationKeyPoints}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
                     {row.conversationType}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.feedback}
+                    {row.contactFeedback}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
                     {row.transferToAuthority}

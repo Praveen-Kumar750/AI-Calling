@@ -1,149 +1,9 @@
-// import { useState } from "react";
-// import ClientNavbar from "./components/ClientNavbar";
-
-// const BillingTableCalls = () => {
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const rowsPerPage = 7;
-//   const totalRows = 21; // Mock total rows for pagination
-
-//   const data = Array.from({ length: totalRows }, (_, i) => ({
-//     contact: "User1@example.com",
-//     date: "John",
-//     duration: "Doe",
-//     service: "123-456-7890",
-//     sessionCost: "Student",
-//     serverCost: "10th Grade",
-//     charge: "19",
-//     reference: "male",
-//   }));
-// const paginatedData = data.slice(
-//     (currentPage - 1) * rowsPerPage,
-//     currentPage * rowsPerPage
-//   );
-
-//   return (
-//     <div className="bg-gray-900 text-white h-screen p-6">
-//         <ClientNavbar></ClientNavbar>
-//       <h2 className="text-2xl font-bold mt-6">BILLING</h2>
-
-//       <div className="flex justify-between">
-//         {/* Tabs */}
-//       <div className="flex gap-4 mb-4">
-//         <button className="bg-purple-600 text-white px-4 py-2 rounded-md">
-//           Incoming
-//         </button>
-//         <button className="bg-white text-black px-4 py-2 rounded-md">
-//           Outgoing
-//         </button>
-//       </div>
-
-//       {/* Filters & Sort */}
-//       <div className="flex justify-between items-center mb-4">
-//         <select className="bg-gray-800 text-white px-3 py-2 rounded-md">
-//           <option>Last 7 days</option>
-//           <option>Last 30 days</option>
-//           <option>All Time</option>
-//         </select>
-//       </div>
-//       </div>
-
-//       <div className="flex justify-between">
-//       <h3 className="text-xl font-semibold mb-2">Call History</h3>
-//       <select>
-//         <option>Sort</option>
-//       </select>
-//       </div>
-//       {/* Table Container (Scrollable) */}
-//       <div className="overflow-x-auto overflow-y-auto border border-blue-500 rounded-md">
-//         <table className="w-full text-left border-collapse">
-//           <thead className="bg-gray-800">
-//             <tr>
-//               {[
-//                 "Contact No",
-//                 "Date (d-y-m)",
-//                 "Time Duration",
-//                 "Service Type (Call/Text)",
-//                 "Session Cost Per Unit Time",
-//                 "Server Cost Per Unit Time",
-//                 "Total Charge",
-//                 "Reference Number (UID)",
-//               ].map((header, i) => (
-//                 <th key={i} className="px-4 py-2 border border-gray-700">
-//                   {header}
-//                 </th>
-//               ))}
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {paginatedData.map((row, index) => (
-//               <tr key={index} className="bg-gray-900">
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.contact}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">{row.date}</td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.duration}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.service}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.sessionCost}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.serverCost}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.charge}
-//                 </td>
-//                 <td className="px-4 py-2 border border-gray-700 ">
-//                   {row.reference}
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* Pagination */}
-//       <div className="flex justify-end mt-4 gap-2">
-//         <button
-//           className="bg-purple-600 text-white px-3 py-1 rounded-md"
-//           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-//         >
-//           ◀
-//         </button>
-//         {[1, 2, 3].map((page) => (
-//           <button
-//             key={page}
-//             onClick={() => setCurrentPage(page)}
-//             className={`px-3 py-1 rounded-md ${
-//               currentPage === page ? "bg-purple-600 text-white" : "bg-gray-700"
-//             }`}
-//           >
-//             {page}
-//           </button>
-//         ))}
-//         <button
-//           className="bg-purple-600 text-white px-3 py-1 rounded-md"
-//           onClick={() =>
-//             setCurrentPage((prev) => Math.min(prev + 1, totalRows / rowsPerPage))
-//           }
-//         >
-//           ▶
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default BillingTableCalls;
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ClientNavbar from "./components/ClientNavbar";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const BillingTableCalls = () => {
   const navigate = useNavigate();
@@ -156,19 +16,31 @@ const BillingTableCalls = () => {
   const [endDate, setEndDate] = useState(null); // End date filter
 
   // Generate Mock Data
-  const generateData = () =>
-    Array.from({ length: totalRows }, (_, i) => ({
-      contact: "User1@example.com",
-      date: new Date(2024, 1, i + 1), // Random dates in Feb 2024
-      duration: Math.floor(Math.random() * 60) + " min",
-      service: "Call",
-      sessionCost: (Math.random() * 10).toFixed(2),
-      serverCost: (Math.random() * 5).toFixed(2),
-      charge: (Math.random() * 50).toFixed(2),
-      reference: Math.floor(Math.random() * 10000),
-    }));
+  // const generateData = () =>
+  //   Array.from({ length: totalRows }, (_, i) => ({
+  //     contact: "User1@example.com",
+  //     date: new Date(2024, 1, i + 1), // Random dates in Feb 2024
+  //     duration: Math.floor(Math.random() * 60) + " min",
+  //     service: "Call",
+  //     sessionCost: (Math.random() * 10).toFixed(2),
+  //     serverCost: (Math.random() * 5).toFixed(2),
+  //     charge: (Math.random() * 50).toFixed(2),
+  //     reference: Math.floor(Math.random() * 10000),
+  //   }));
 
-  const [data, setData] = useState(generateData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:5000/api/billing-logs");
+      console.log(response.data);
+      setData(response.data);
+    };
+    fetchData();
+  }, []);
+
+  
+
 
   // Modify Dates Randomly (For Testing)
   const modifyDates = () => {
@@ -308,7 +180,7 @@ const BillingTableCalls = () => {
                   "Contact No",
                   "Date (d-m-y)",
                   "Time Duration",
-                  "Service Type (Call/Text)",
+                  "Service Type",
                   "Session Cost Per Unit Time",
                   "Server Cost Per Unit Time",
                   "Total Charge",
@@ -327,31 +199,32 @@ const BillingTableCalls = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedData.map((row, index) => (
+              {data.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.contact}
+                    {row.contactNo}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.date.toLocaleDateString()}
+                    {/* {row.date} */}
+                    {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.duration}
+                    {row.timeDuration}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.service}
+                    {row.serviceType}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.sessionCost}
+                    {row.sessionCostPerUnitTime}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.serverCost}
+                    {row.serverCostPerUnitTime}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.charge}
+                    {row.totalCharge}
                   </td>
                   <td className="px-4 py-2 border border-gray-700">
-                    {row.reference}
+                    {row.referenceNumber}
                   </td>
                 </tr>
               ))}

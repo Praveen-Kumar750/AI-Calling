@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClientNavbar from "./components/ClientNavbar";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 
 const BillingTableMessages = () => {
@@ -16,19 +17,28 @@ const BillingTableMessages = () => {
   const [endDate, setEndDate] = useState(null); // End date filter
 
   // Generate Mock Data
-  const generateData = () =>
-    Array.from({ length: totalRows }, (_, i) => ({
-      contact: "User1@example.com",
-      date: new Date(2024, 1, i + 1), // Random dates in Feb 2024
-      duration: Math.floor(Math.random() * 60) + " min",
-      service: "Call",
-      sessionCost: (Math.random() * 10).toFixed(2),
-      serverCost: (Math.random() * 5).toFixed(2),
-      charge: (Math.random() * 50).toFixed(2),
-      reference: Math.floor(Math.random() * 10000),
-    }));
+  // const generateData = () =>
+  //   Array.from({ length: totalRows }, (_, i) => ({
+  //     contact: "User1@example.com",
+  //     date: new Date(2024, 1, i + 1), // Random dates in Feb 2024
+  //     duration: Math.floor(Math.random() * 60) + " min",
+  //     service: "Call",
+  //     sessionCost: (Math.random() * 10).toFixed(2),
+  //     serverCost: (Math.random() * 5).toFixed(2),
+  //     charge: (Math.random() * 50).toFixed(2),
+  //     reference: Math.floor(Math.random() * 10000),
+  //   }));
 
-  const [data, setData] = useState(generateData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:5000/api/billing-logs-messages");
+      console.log(response.data);
+      setData(response.data);
+    };
+    fetchData();
+  }, []);
 
   // Modify Dates Randomly (For Testing)
   const modifyDates = () => {
@@ -169,7 +179,7 @@ const BillingTableMessages = () => {
                   "Contact No",
                   "Date (d-m-y)",
                   "Time Duration",
-                  "Service Type (Call/Text)",
+                  "Service Type",
                   "Session Cost Per Unit Time",
                   "Server Cost Per Unit Time",
                   "Total Charge",
@@ -188,33 +198,34 @@ const BillingTableMessages = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedData.map((row, index) => (
+              {data.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.contact}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.date.toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.duration}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.service}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.sessionCost}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.serverCost}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.charge}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {row.reference}
-                  </td>
-                </tr>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.contactNo}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {/* {row.date} */}
+                  {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.timeDuration}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.serviceType}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.sessionCostPerUnitTime}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.serverCostPerUnitTime}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.totalCharge}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {row.referenceNumber}
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
