@@ -5,18 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-// const initialCallData = Array(10).fill({
-//   contactNo: "980000000000",
-//   date: "01-01-2000",
-//   timeDuration: "10:10:10",
-//   conversationRaw: "View Full Chat",
-//   conversationSummary: "View Summary",
-//   keyPoints: "Key points",
-//   conversationType: "Unsatisfied",
-//   feedback: "Angry",
-//   transferToAuthority: "Free",
-// });
-
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
   { key: "date", label: "Date (d-y-m)" },
