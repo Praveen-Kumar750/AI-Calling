@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import ClientNavbar from "./components/ClientNavbar";
 import { useNavigate } from "react-router-dom";
@@ -5,16 +6,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-
 const BillingTableMessages = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
-  const totalRows = 21;
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [startDate, setStartDate] = useState(null); // Start date filter
-  const [endDate, setEndDate] = useState(null); // End date filter
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -25,20 +24,10 @@ const BillingTableMessages = () => {
     fetchData();
   }, []);
 
-  // Modify Dates Randomly (For Testing)
-  const modifyDates = () => {
-    setData((prevData) =>
-      prevData.map((row) => ({
-        ...row,
-        date: new Date(2024, 1, Math.floor(Math.random() * 28) + 1),
-      }))
-    );
-  };
-
   // Date Filtering Logic
   const filteredData = data.filter((row) => {
     if (!startDate || !endDate) return true;
-    return row.date >= startDate && row.date <= endDate;
+    return new Date(row.date) >= startDate && new Date(row.date) <= endDate;
   });
 
   // Sorting Logic
@@ -66,10 +55,7 @@ const BillingTableMessages = () => {
       : 1;
   });
 
-  const paginatedData = sortedData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+  const paginatedData = sortedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   const handleSort = (key) => {
     setSortConfig((prev) => ({
@@ -85,25 +71,26 @@ const BillingTableMessages = () => {
   return (
     <>
       <ClientNavbar />
-      <div className="bg-gray-900 text-white h-screen p-6">
+      <div className="bg-gray-900 text-white min-h-screen p-6">
         <h2 className="text-2xl font-bold mt-6">BILLING</h2>
-        <div className="space-x-4 py-4">
+
+        {/* Buttons */}
+        <div className="flex space-x-4 py-4">
           <button
-          onClick={handleCalls}
-          className="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md cursor-pointer">
+            onClick={handleCalls}
+            className="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md cursor-pointer"
+          >
             Calls
           </button>
-          <button
-            className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md cursor-pointer"
-          >
+          <button className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md cursor-pointer">
             Messages
           </button>
         </div>
 
-        {/* Filters & Sorting Row */}
-        <div className="flex justify-between items-center mb-4">
+        {/* Filters & Sorting */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-4 space-y-4 md:space-y-0">
           {/* Date Range Filters */}
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <div>
               <label className="block text-gray-400 text-sm">Start Date</label>
               <DatePicker
@@ -112,7 +99,7 @@ const BillingTableMessages = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
-                className="bg-gray-800 text-white px-3 py-2 rounded-md"
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
               />
             </div>
             <div>
@@ -124,39 +111,33 @@ const BillingTableMessages = () => {
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}
-                className="bg-gray-800 text-white px-3 py-2 rounded-md"
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
               />
             </div>
-            <button
-              className="bg-blue-500 px-4 py-2 rounded-md text-white"
-              onClick={modifyDates}
-            >
-              Modify Dates (Test)
-            </button>
           </div>
 
           {/* Sorting Dropdown */}
           <div>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
+              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-full"
             >
               <option value="">Sort</option>
-              {/* <option value="contact">Last 7 days</option> */}
-              {/* <option value="contact">Last 30 days</option> */}
               <option value="date">Date</option>
-              <option value="duration">Time Duration</option>
-              <option value="service">Service Type</option>
-              <option value="sessionCost">Session Cost</option>
-              <option value="serverCost">Server Cost</option>
-              <option value="charge">Total Charge</option>
-              <option value="reference">Reference Number</option>
+              <option value="timeDuration">Time Duration</option>
+              <option value="serviceType">Service Type</option>
+              <option value="sessionCostPerUnitTime">Session Cost</option>
+              <option value="serverCostPerUnitTime">Server Cost</option>
+              <option value="totalCharge">Total Charge</option>
+              <option value="referenceNumber">Reference Number</option>
             </select>
           </div>
         </div>
 
-        {/* Table Container (Scrollable) */}
-        <div className="overflow-x-auto overflow-y-auto border border-blue-500 rounded-md">
+        <h3 className="text-xl font-bold mt-6 mb-3">Message History</h3>
+
+        {/* Table Container */}
+        <div className="overflow-x-auto border border-blue-500 rounded-md">
           <table className="w-full text-left border-collapse">
             <thead className="bg-gray-800">
               <tr>
@@ -173,9 +154,7 @@ const BillingTableMessages = () => {
                   <th
                     key={i}
                     className="px-2 py-2 text-center border border-gray-700 cursor-pointer"
-                    onClick={() =>
-                      handleSort(header.toLowerCase().replace(/\s/g, ""))
-                    }
+                    onClick={() => handleSort(header.toLowerCase().replace(/\s/g, ""))}
                   >
                     {header}
                   </th>
@@ -183,34 +162,21 @@ const BillingTableMessages = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {paginatedData.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.contactNo}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {/* {row.date} */}
-                  {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.timeDuration}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.serviceType}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.sessionCostPerUnitTime}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.serverCostPerUnitTime}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.totalCharge}
-                </td>
-                <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                  {row.referenceNumber}
-                </td>
-              </tr>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.contactNo}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
+                    {`${String(new Date(row.date).getDate()).padStart(2, "0")}-${String(
+                      new Date(row.date).getMonth() + 1
+                    ).padStart(2, "0")}-${new Date(row.date).getFullYear()}`}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.timeDuration}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.serviceType}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.sessionCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.serverCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.totalCharge}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.referenceNumber}</td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -221,10 +187,5 @@ const BillingTableMessages = () => {
 };
 
 export default BillingTableMessages;
-
-
-
-
-
 
 
