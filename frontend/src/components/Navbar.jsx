@@ -11,7 +11,7 @@ const Navbar = () => {
     // Check if user is logged in (e.g., by checking token in localStorage)
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token); // Convert to boolean
-  }, [location.pathname]); // Update when route changes
+  }, [location.pathname]); 
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Clear authentication token
