@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ClientNavbar from "./components/ClientNavbar";
@@ -9,11 +11,10 @@ const BillingTableCalls = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
-  const totalRows = 21;
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [startDate, setStartDate] = useState(null); // Start date filter
-  const [endDate, setEndDate] = useState(null); // End date filter
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -24,20 +25,15 @@ const BillingTableCalls = () => {
     fetchData();
   }, []);
 
-  
-
-
-  // Modify Dates Randomly (For Testing)
-  const modifyDates = () => {
-    setData((prevData) =>
-      prevData.map((row) => ({
-        ...row,
-        date: new Date(2024, 1, Math.floor(Math.random() * 28) + 1),
-      }))
-    );
+  // Sorting Functionality
+  const handleSort = (key) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
   };
 
-  // Date Filtering Logic
+  // Date Filtering
   const filteredData = data.filter((row) => {
     if (!startDate || !endDate) return true;
     return row.date >= startDate && row.date <= endDate;
@@ -73,13 +69,6 @@ const BillingTableCalls = () => {
     currentPage * rowsPerPage
   );
 
-  const handleSort = (key) => {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
-  };
-
   const handleMessages = () => {
     navigate("/billing-messages");
   };
@@ -87,9 +76,11 @@ const BillingTableCalls = () => {
   return (
     <>
       <ClientNavbar />
-      <div className="bg-gray-900 text-white h-screen p-6">
-        <h2 className="text-2xl font-bold mt-6">BILLING</h2>
-        <div className="space-x-4 py-4">
+      <div className="bg-gray-900 text-white min-h-screen p-4 sm:p-6">
+        <h2 className="text-2xl font-bold mt-4 sm:mt-6">BILLING</h2>
+
+        {/* Navigation Buttons */}
+        <div className="flex flex-wrap gap-4 mt-4">
           <button className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md cursor-pointer">
             Calls
           </button>
@@ -101,10 +92,10 @@ const BillingTableCalls = () => {
           </button>
         </div>
 
-        {/* Filters & Sorting Row */}
-        <div className="flex justify-between items-center mb-4">
-          {/* Date Range Filters */}
-          <div className="flex gap-4">
+        {/* Filters & Sorting (Responsive) */}
+        <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mt-6 gap-4">
+          {/* Date Filters */}
+          <div className="flex flex-wrap sm:flex-nowrap gap-4">
             <div>
               <label className="block text-gray-400 text-sm">Start Date</label>
               <DatePicker
@@ -113,7 +104,7 @@ const BillingTableCalls = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
-                className="bg-gray-800 text-white px-3 py-2 rounded-md"
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
               />
             </div>
             <div>
@@ -125,26 +116,19 @@ const BillingTableCalls = () => {
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}
-                className="bg-gray-800 text-white px-3 py-2 rounded-md"
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
               />
             </div>
-            <button
-              className="bg-blue-500 px-4 py-2 rounded-md text-white"
-              onClick={modifyDates}
-            >
-              Modify Dates (Test)
-            </button>
           </div>
 
           {/* Sorting Dropdown */}
-          <div>
+          <div className="w-full sm:w-auto">
+            <label className="block text-gray-400 text-sm">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
+              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto"
             >
               <option value="">Sort</option>
-              {/* <option value="contact">Last 7 days</option> */}
-              {/* <option value="contact">Last 30 days</option> */}
               <option value="date">Date</option>
               <option value="duration">Time Duration</option>
               <option value="service">Service Type</option>
@@ -156,9 +140,12 @@ const BillingTableCalls = () => {
           </div>
         </div>
 
-        {/* Table Container (Scrollable) */}
-        <div className="overflow-x-auto overflow-y-auto border border-blue-500 rounded-md">
-          <table className="w-full text-left border-collapse">
+        {/* Call History Header */}
+        <h3 className="text-xl font-bold mt-6">Call History</h3>
+
+        {/* Table (Responsive) */}
+        <div className="overflow-x-auto border border-blue-500 rounded-md mt-4">
+          <table className="w-full text-left border-collapse min-w-[800px]">
             <thead className="bg-gray-800">
               <tr>
                 {[
@@ -173,7 +160,7 @@ const BillingTableCalls = () => {
                 ].map((header, i) => (
                   <th
                     key={i}
-                    className="px-2 py-2 border text-center border-gray-700 cursor-pointer"
+                    className="px-4 py-3 border border-gray-700 cursor-pointer text-center"
                     onClick={() =>
                       handleSort(header.toLowerCase().replace(/\s/g, ""))
                     }
@@ -184,33 +171,18 @@ const BillingTableCalls = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {paginatedData.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.contactNo}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {/* {row.date} */}
+                  <td className="px-4 py-2 border border-gray-700">{row.contactNo}</td>
+                  <td className="px-4 py-2 border border-gray-700">
                     {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.timeDuration}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.serviceType}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.sessionCostPerUnitTime}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.serverCostPerUnitTime}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.totalCharge}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {row.referenceNumber}
-                  </td>
+                  <td className="px-4 py-2 border border-gray-700">{row.timeDuration}</td>
+                  <td className="px-4 py-2 border border-gray-700">{row.serviceType}</td>
+                  <td className="px-4 py-2 border border-gray-700">{row.sessionCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700">{row.serverCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700">{row.totalCharge}</td>
+                  <td className="px-4 py-2 border border-gray-700">{row.referenceNumber}</td>
                 </tr>
               ))}
             </tbody>

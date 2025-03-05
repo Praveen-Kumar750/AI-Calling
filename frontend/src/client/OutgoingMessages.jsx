@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import ClientNavbar from "./components/ClientNavbar";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +23,9 @@ const columnOptions = [
 const OutgoingMessages = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [callData, setCallData] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(null); // Start date filter
-  const [endDate, setEndDate] = useState(null); // End date filter
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,10 +35,8 @@ const OutgoingMessages = () => {
     fetchData();
   }, []);
 
-
-  // Modify Dates Randomly (For Testing)
   const modifyDates = () => {
-    setData((prevData) =>
+    setCallData((prevData) =>
       prevData.map((row) => ({
         ...row,
         date: new Date(2024, 1, Math.floor(Math.random() * 28) + 1),
@@ -55,177 +54,92 @@ const OutgoingMessages = () => {
       direction:
         prev.key === columnKey && prev.direction === "asc" ? "desc" : "asc",
     }));
-    setDropdownOpen(false); // Close dropdown after selection
   };
 
   const sortedData = [...callData].sort((a, b) => {
     if (!sortConfig.key) return 0;
-
     let valA = a[sortConfig.key];
     let valB = b[sortConfig.key];
-
     if (!isNaN(valA) && !isNaN(valB)) {
       valA = Number(valA);
       valB = Number(valB);
     }
-
-    return sortConfig.direction === "asc"
-      ? valA < valB
-        ? -1
-        : 1
-      : valA > valB
-      ? -1
-      : 1;
+    return sortConfig.direction === "asc" ? (valA < valB ? -1 : 1) : valA > valB ? -1 : 1;
   });
 
   return (
     <>
       <ClientNavbar />
-      <div className="bg-gray-900 text-white min-h-screen p-6">
-        {/* Navbar */}
+      <div className="bg-gray-900 text-white min-h-screen p-4 sm:p-6">
+        <h2 className="text-2xl font-bold mt-4 sm:mt-6">OUTGOING</h2>
 
-        <h2 className="text-2xl font-bold mt-6">OUTGOING</h2>
-
-        {/* Filters */}
-        <div className="flex items-center justify-between mt-4">
-          <div className="space-x-4">
-            <button
-            onClick={handleCallHistory}
-            className="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md cursor-pointer">
-              Call History
-            </button>
-            <button
-              className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md cursor-pointer"
-            >
-              Message History
-            </button>
-          </div>
-
-          {/* Sort Button with Dropdown */}
-          {/* <div className="relative">
-          <button
-            className="bg-gray-800 text-white px-4 py-2 w-[100px] rounded-md cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            Sort <FaSort className="ml-2" />
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-4 mt-4">
+          <button onClick={handleCallHistory} className="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md cursor-pointer">
+            Call History
           </button>
-
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-md z-10">
-              {columnOptions.map((col) => (
-                <button
-                  key={col.key}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-700"
-                  onClick={() => handleSort(col.key)}
-                >
-                  {col.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div> */}
-
-          {/* <div>
-            <select
-              onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
-            >
-              <option value="">Sort</option>
-              <option value="contact">Last 7 days</option>
-              <option value="contact">Last 30 days</option>
-              <option value="date">Date</option>
-              <option value="duration">Time Duration</option>
-              <option value="service">Service Type</option>
-              <option value="sessionCost">Session Cost</option>
-              <option value="serverCost">Server Cost</option>
-              <option value="charge">Total Charge</option>
-              <option value="reference">Reference Number</option>
-              {columnOptions.map((col) => (
-                <option
-                  key={col.key}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-700"
-                  onClick={() => handleSort(col.key)}
-                >
-                  {col.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
+          <button className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md cursor-pointer">
+            Message History
+          </button>
         </div>
 
-        <div className="flex justify-between items-center mb-4 mt-4">
-                  {/* Date Range Filters */}
-                  <div className="flex gap-4">
-                    <div>
-                      <label className="block text-gray-400 text-sm">Start Date</label>
-                      <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                        className="bg-gray-800 text-white px-3 py-2 rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-400 text-sm">End Date</label>
-                      <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                        className="bg-gray-800 text-white px-3 py-2 rounded-md"
-                      />
-                    </div>
-                    <button
-                      className="bg-blue-500 px-4 py-2 rounded-md text-white"
-                      onClick={modifyDates}
-                    >
-                      Modify Dates (Test)
-                    </button>
-                  </div>
-        
-                  {/* Sorting Dropdown */}
-                  <div>
-                    <select
-                      onChange={(e) => handleSort(e.target.value)}
-                      className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
-                    >
-                      <option value="">Sort</option>
-                      {/* <option value="contact">Last 7 days</option> */}
-                      {/* <option value="contact">Last 30 days</option> */}
-                      {/* <option value="date">Date</option> */}
-                      <option value="duration">Time Duration</option>
-                      {/* <option value="service">Service Type</option> */}
-                      {/* <option value="sessionCost">Session Cost</option> */}
-                      {/* <option value="serverCost">Server Cost</option> */}
-                      {/* <option value="charge">Total Charge</option> */}
-                      {/* <option value="reference">Reference Number</option> */}
-                    </select>
-                  </div>
-                </div>
+        {/* Date Selection & Sorting (Aligned in One Line) */}
+        <div className="flex flex-wrap md:flex-nowrap items-center justify-between mt-6 gap-4">
+          {/* Date Selection */}
+          <div className="flex flex-wrap md:flex-nowrap gap-4">
+            <div>
+              <label className="block text-gray-400 text-sm">Start Date</label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-400 text-sm">End Date</label>
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+                className="bg-gray-800 text-white px-3 py-2 rounded-md w-full"
+              />
+            </div>
+            {/* <button className="bg-blue-500 px-4 py-2 rounded-md text-white" onClick={modifyDates}>
+              Modify Dates (Test)
+            </button> */}
+          </div>
 
-        
+          {/* Sorting */}
+          <div>
+            <label className="block text-gray-400 text-sm">Sort By</label>
+            <select
+              onChange={(e) => handleSort(e.target.value)}
+              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-full"
+            >
+              <option value="">Select</option>
+              <option value="timeDuration">Time Duration</option>
+            </select>
+          </div>
+        </div>
 
         <h3 className="text-xl font-bold mt-6">Message History</h3>
 
-        {/* Table Container */}
-        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto overflow-y-auto admin-scroll">
-          <table className="w-full text-left border-collapse">
+        {/* Table */}
+        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto">
+          <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
               <tr className="bg-gray-700">
                 {columnOptions.map((col, index) => (
-                  <th
-                    key={index}
-                    className="px-4 py-3 border border-gray-600 min-w-[150px]"
-                  >
+                  <th key={index} className="px-4 py-3 border border-gray-600 min-w-[150px]">
                     {col.label}
                     {sortConfig.key === col.key && (
-                      <span className="ml-2">
-                        {sortConfig.direction === "asc" ? "▲" : "▼"}
-                      </span>
+                      <span className="ml-2">{sortConfig.direction === "asc" ? "▲" : "▼"}</span>
                     )}
                   </th>
                 ))}
@@ -234,37 +148,18 @@ const OutgoingMessages = () => {
             <tbody>
               {sortedData.map((row, index) => (
                 <tr key={index} className="border border-gray-700">
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.contactNo}</td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.contactNo}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {/* {row.date} */}
                     {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-center">
-                    {row.timeDuration}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.conversationTopic}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">
-                    {row.conversationRaw}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">
-                    {row.conversationSummary}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.conversationKeyPoints}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.conversationType}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.contactFeedback}
-                  </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {row.transferToAuthority}
-                  </td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-center">{row.timeDuration}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.conversationTopic}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">{row.conversationRaw}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">{row.conversationSummary}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.conversationKeyPoints}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.conversationType}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.contactFeedback}</td>
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.transferToAuthority || "N/A"}</td>
                 </tr>
               ))}
             </tbody>
