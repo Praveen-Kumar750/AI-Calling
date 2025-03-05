@@ -57,12 +57,8 @@ const Navbar = () => {
         <Link to="/pricing" className="hover:text-gray-300 text-2xl font-thin">Pricing</Link>
 
         {isAuthenticated ? (
-          <button 
-            onClick={handleLogout} 
-            className="bg-pink-600 hover:bg-pink-700 text-white cursor-pointer px-4 py-2 rounded-md text-xl font-thin"
-          >
-            Logout
-          </button>
+          
+          <Link to="/dashboard" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
         ) : (
           <Link to="/login" className="hover:text-gray-300 text-2xl font-thin">Profile</Link>
         )}
