@@ -14,26 +14,11 @@ const BillingTableCalls = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [startDate, setStartDate] = useState(null); // Start date filter
   const [endDate, setEndDate] = useState(null); // End date filter
-
-  // Generate Mock Data
-  // const generateData = () =>
-  //   Array.from({ length: totalRows }, (_, i) => ({
-  //     contact: "User1@example.com",
-  //     date: new Date(2024, 1, i + 1), // Random dates in Feb 2024
-  //     duration: Math.floor(Math.random() * 60) + " min",
-  //     service: "Call",
-  //     sessionCost: (Math.random() * 10).toFixed(2),
-  //     serverCost: (Math.random() * 5).toFixed(2),
-  //     charge: (Math.random() * 50).toFixed(2),
-  //     reference: Math.floor(Math.random() * 10000),
-  //   }));
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/billing-logs");
-      console.log(response.data);
       setData(response.data);
     };
     fetchData();
@@ -179,11 +164,11 @@ const BillingTableCalls = () => {
                 {[
                   "Contact No",
                   "Date (d-m-y)",
-                  "Time Duration",
+                  "Time Duration (mins)",
                   "Service Type",
-                  "Session Cost Per Unit Time",
-                  "Server Cost Per Unit Time",
-                  "Total Charge",
+                  "Session Cost Per Unit Time (Rs.)",
+                  "Server Cost Per Unit Time (Rs.)",
+                  "Total Charge (Rs.)",
                   "Reference Number (UID)",
                 ].map((header, i) => (
                   <th
@@ -201,29 +186,29 @@ const BillingTableCalls = () => {
             <tbody>
               {data.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.contactNo}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {/* {row.date} */}
                     {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.timeDuration}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.serviceType}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.sessionCostPerUnitTime}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.serverCostPerUnitTime}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.totalCharge}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
                     {row.referenceNumber}
                   </td>
                 </tr>

@@ -8,7 +8,7 @@ import axios from "axios";
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
   { key: "date", label: "Date (d-y-m)" },
-  { key: "timeDuration", label: "Time Duration" },
+  { key: "timeDuration", label: "Time Duration (mins)" },
   { key: "conversationTopics", label: "Conversation Topics/Purpose" },
   { key: "conversationRaw", label: "Conversation (RAW)" },
   { key: "conversationSummary", label: "Conversation Summary" },
@@ -29,7 +29,6 @@ const OutgoingCalls = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/outgoing-calls");
-      console.log(response.data);
       setCallData(response.data);
     };
     fetchData();
@@ -144,15 +143,7 @@ const OutgoingCalls = () => {
                       className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer"
                     >
                       <option value="">Sort</option>
-                      {/* <option value="contact">Last 7 days</option> */}
-                      {/* <option value="contact">Last 30 days</option> */}
-                      {/* <option value="date">Date</option> */}
                       <option value="duration">Time Duration</option>
-                      {/* <option value="service">Service Type</option> */}
-                      {/* <option value="sessionCost">Session Cost</option> */}
-                      {/* <option value="serverCost">Server Cost</option> */}
-                      {/* <option value="charge">Total Charge</option> */}
-                      {/* <option value="reference">Reference Number</option> */}
                     </select>
                   </div>
                 </div>
@@ -191,7 +182,7 @@ const OutgoingCalls = () => {
                     {/* {row.date} */}
                     {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
+                  <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-center">
                     {row.timeDuration}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">

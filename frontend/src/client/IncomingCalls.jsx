@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
   { key: "date", label: "Date (d-y-m)" },
-  { key: "timeDuration", label: "Time Duration" },
+  { key: "timeDuration", label: "Time Duration (mins)" },
   { key: "conversationRaw", label: "Conversation (RAW)" },
   { key: "conversationSummary", label: "Conversation Summary" },
   { key: "keyPoints", label: "Conversation Key Points" },
@@ -28,7 +28,6 @@ const IncomingCalls = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/incoming-calls");
-      console.log(response.data);
       setCallData(response.data);
     };
     fetchData();
@@ -239,7 +238,7 @@ const IncomingCalls = () => {
                     {/* {row.date} */}
                     {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 min-w-[150px] border border-gray-600">
+                  <td className="px-4 py-2 min-w-[150px] text-center border border-gray-600">
                     {row.timeDuration}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-blue-400 cursor-pointer">
