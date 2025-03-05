@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-black text-white p-8 pt-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Left Section */}
+        
         <div>
           <h2 className="text-3xl font-semibold flex items-center gap-2">
             <FaPhoneAlt className="text-white" /> <span >AI Calling</span>

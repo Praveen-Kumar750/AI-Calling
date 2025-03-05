@@ -15,6 +15,7 @@ const ChatBot = () => {
     { sender: "bot", text: "Hi, How can I help you?" },
   ]);
   const [input, setInput] = useState("");
+  
 
     const API_KEY = "AIzaSyA9-wB05fSqmui6EoWgML88lo8-xQWIZHQ";
   const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
