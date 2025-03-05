@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, Tooltip, BarChart, Bar, CartesianGrid } from "recharts";
 
@@ -28,6 +28,15 @@ const Dashboard = () => {
     { name: "Jul", cost: 2000 },
   ];
 
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("hasReloaded");
+    if (!hasReloaded) {
+      sessionStorage.setItem("hasReloaded", "true");
+      window.location.reload();
+    }
+  }, []);
+  
+  
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Navbar */}
