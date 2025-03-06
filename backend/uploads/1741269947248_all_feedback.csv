@@ -1,0 +1,6 @@
+Report / Feedback Type,Report / Feedback Category,Email,First Name,Last Name,Phone Number,Description,Additional Document Attached,Rating,Urgency Level,StatusUnder,Assigned Team/Department,Update,Complete / Running
+Feedback,Usability,user1@example.com,hjkn,Doe,123-456-7890,This is a feedback description.,Yes,5,High,Review,UI/UX ,Reviewing suggestions to improve usability,Complete
+Suggestion,Feature Request,user1@example.com,klvkb,Doe,245-456-7890,This is a feedback description.,Yes,5,,,,,
+Report,Bug,user1@example.com,ingorn,Doe,1643-456-7890,This is a feedback description.,Yes,5,,,,,
+Feedback,Bug,user1@example.com,John,Doe,451-456-7890,This is a feedback description.,Yes,5,,,,,
+Feedback,Bug,user1@example.com,John,Doe,123-456-7890,,,,,,,,
