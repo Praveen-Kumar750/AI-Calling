@@ -1,5 +1,3 @@
-
-
 // import React, { useState, useEffect } from "react";
 // import ClientNavbar from "./components/ClientNavbar";
 // import { useNavigate } from "react-router-dom";
@@ -219,13 +217,6 @@
 
 // export default IncomingCalls;
 
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import ClientNavbar from "./components/ClientNavbar";
 import { useNavigate } from "react-router-dom";
@@ -262,7 +253,9 @@ const IncomingCalls = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/incoming-calls");
+        const response = await axios.get(
+          "http://localhost:5000/api/incoming-calls"
+        );
         setCallData(response.data);
         setFilteredData(response.data);
       } catch (err) {
@@ -289,7 +282,8 @@ const IncomingCalls = () => {
   const handleSort = (columnKey) => {
     setSortConfig((prev) => ({
       key: columnKey,
-      direction: prev.key === columnKey && prev.direction === "asc" ? "desc" : "asc",
+      direction:
+        prev.key === columnKey && prev.direction === "asc" ? "desc" : "asc",
     }));
   };
 
@@ -301,7 +295,13 @@ const IncomingCalls = () => {
       valA = Number(valA);
       valB = Number(valB);
     }
-    return sortConfig.direction === "asc" ? (valA < valB ? -1 : 1) : valA > valB ? -1 : 1;
+    return sortConfig.direction === "asc"
+      ? valA < valB
+        ? -1
+        : 1
+      : valA > valB
+      ? -1
+      : 1;
   });
 
   return (
@@ -311,7 +311,9 @@ const IncomingCalls = () => {
         <h2 className="text-2xl font-bold mt-4">INCOMING</h2>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-4">
           <div className="space-x-2 md:space-x-4">
-            <button className="bg-pink-700 hover:bg-pink-800 px-3 py-2 rounded-md">Call History</button>
+            <button className="bg-pink-700 hover:bg-pink-800 px-3 py-2 rounded-md">
+              Call History
+            </button>
             <button
               onClick={handleMessageHistory}
               className="bg-gray-700 hover:bg-gray-800 px-3 py-2 rounded-md"
@@ -320,7 +322,7 @@ const IncomingCalls = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row md:justify-between gap-4 mt-4">
+        <div className="flex flex-wrap justify-between gap-4 mt-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div>
               <label className="block text-gray-400 text-sm">Start Date</label>
@@ -350,7 +352,7 @@ const IncomingCalls = () => {
             <label className="block text-gray-400 text-sm">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md w-full"
+              className="bg-gray-800 text-white px-4 py-2 rounded-md w-full md:w-auto"
             >
               <option value="">Select</option>
               <option value="timeDuration">Time Duration</option>
@@ -358,7 +360,7 @@ const IncomingCalls = () => {
           </div>
         </div>
         <h3 className="text-xl font-bold mt-6">Call History</h3>
-        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto">
+        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto admin-scroll">
           {loading ? (
             <p className="text-center text-gray-400">Loading...</p>
           ) : error ? (
@@ -366,11 +368,14 @@ const IncomingCalls = () => {
           ) : sortedData.length === 0 ? (
             <p className="text-center text-gray-400">No data available.</p>
           ) : (
-            <table className="w-full text-left border-collapse text-sm md:text-base">
+            <table className="w-full text-left border-collapse min-w-max">
               <thead>
                 <tr className="bg-gray-700">
                   {columnOptions.map((col, index) => (
-                    <th key={index} className="px-2 md:px-4 py-2 border border-gray-600 min-w-[120px]">
+                    <th
+                      key={index}
+                      className="px-2 md:px-4 py-2 border border-gray-600 min-w-[120px]"
+                    >
                       {col.label}
                     </th>
                   ))}
@@ -378,10 +383,18 @@ const IncomingCalls = () => {
               </thead>
               <tbody>
                 {sortedData.map((row, index) => (
-                  <tr key={index} className="border border-gray-700 hover:bg-gray-750 transition">
+                  <tr
+                    key={index}
+                    className="border border-gray-700 hover:bg-gray-750 transition"
+                  >
                     {columnOptions.map((col) => (
-                      <td key={col.key} className="px-2 md:px-4 py-2 border border-gray-600">
-                        {row[col.key] || "-"}
+                      <td
+                        key={col.key}
+                        className="px-2 md:px-4 text-center py-2 border border-gray-600"
+                      >
+                        {col.key === "date"
+                          ? new Date(row[col.key]).toLocaleDateString("en-GB")
+                          : row[col.key] || "-"}
                       </td>
                     ))}
                   </tr>

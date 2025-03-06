@@ -88,7 +88,7 @@ const BillingTableMessages = () => {
         </div>
 
         {/* Filters & Sorting */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-4 space-y-4 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between mb-4 space-y-4 md:space-y-0">
           {/* Date Range Filters */}
           <div className="flex flex-wrap gap-4">
             <div>
@@ -118,9 +118,10 @@ const BillingTableMessages = () => {
 
           {/* Sorting Dropdown */}
           <div>
+          <label className="block text-gray-400 text-sm">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-full"
+              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-[150px]"
             >
               <option value="">Sort</option>
               <option value="date">Date</option>
@@ -137,7 +138,7 @@ const BillingTableMessages = () => {
         <h3 className="text-xl font-bold mt-6 mb-3">Message History</h3>
 
         {/* Table Container */}
-        <div className="overflow-x-auto border border-blue-500 rounded-md">
+        <div className="overflow-x-auto admin-scroll border border-blue-500 rounded-md">
           <table className="w-full text-left border-collapse">
             <thead className="bg-gray-800">
               <tr>

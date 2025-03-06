@@ -126,7 +126,7 @@ const BillingTableCalls = () => {
             <label className="block text-gray-400 text-sm">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto"
+              className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-[150px]"
             >
               <option value="">Sort</option>
               <option value="date">Date</option>
@@ -144,8 +144,8 @@ const BillingTableCalls = () => {
         <h3 className="text-xl font-bold mt-6">Call History</h3>
 
         {/* Table (Responsive) */}
-        <div className="overflow-x-auto border border-blue-500 rounded-md mt-4">
-          <table className="w-full text-left border-collapse min-w-[800px]">
+        <div className="overflow-x-auto admin-scroll border border-blue-500 rounded-md">
+          <table className="w-full text-left border-collapse">
             <thead className="bg-gray-800">
               <tr>
                 {[
@@ -160,10 +160,8 @@ const BillingTableCalls = () => {
                 ].map((header, i) => (
                   <th
                     key={i}
-                    className="px-4 py-3 border border-gray-700 cursor-pointer text-center"
-                    onClick={() =>
-                      handleSort(header.toLowerCase().replace(/\s/g, ""))
-                    }
+                    className="px-2 py-2 text-center border border-gray-700 cursor-pointer"
+                    onClick={() => handleSort(header.toLowerCase().replace(/\s/g, ""))}
                   >
                     {header}
                   </th>
@@ -173,16 +171,18 @@ const BillingTableCalls = () => {
             <tbody>
               {paginatedData.map((row, index) => (
                 <tr key={index} className="bg-gray-900 text-center">
-                  <td className="px-4 py-2 border border-gray-700">{row.contactNo}</td>
-                  <td className="px-4 py-2 border border-gray-700">
-                    {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.contactNo}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
+                    {`${String(new Date(row.date).getDate()).padStart(2, "0")}-${String(
+                      new Date(row.date).getMonth() + 1
+                    ).padStart(2, "0")}-${new Date(row.date).getFullYear()}`}
                   </td>
-                  <td className="px-4 py-2 border border-gray-700">{row.timeDuration}</td>
-                  <td className="px-4 py-2 border border-gray-700">{row.serviceType}</td>
-                  <td className="px-4 py-2 border border-gray-700">{row.sessionCostPerUnitTime}</td>
-                  <td className="px-4 py-2 border border-gray-700">{row.serverCostPerUnitTime}</td>
-                  <td className="px-4 py-2 border border-gray-700">{row.totalCharge}</td>
-                  <td className="px-4 py-2 border border-gray-700">{row.referenceNumber}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.timeDuration}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.serviceType}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.sessionCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.serverCostPerUnitTime}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.totalCharge}</td>
+                  <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.referenceNumber}</td>
                 </tr>
               ))}
             </tbody>

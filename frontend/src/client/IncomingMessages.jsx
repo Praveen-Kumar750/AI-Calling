@@ -154,7 +154,7 @@ const IncomingMessages = () => {
         <h3 className="text-xl font-bold mt-6">Message History</h3>
 
         {/* Table */}
-        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto">
+        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto admin-scroll">
           {loading ? (
             <p className="text-center text-gray-400">Loading...</p>
           ) : error ? (
@@ -184,9 +184,11 @@ const IncomingMessages = () => {
                     {columnOptions.map((col) => (
                       <td
                         key={col.key}
-                        className="px-2 md:px-4 py-2 border border-gray-600"
+                        className="px-2 md:px-4 text-center py-2 border border-gray-600"
                       >
-                        {row[col.key] || "-"}
+                        {col.key === "date"
+                          ? new Date(row[col.key]).toLocaleDateString("en-GB")
+                          : row[col.key] || "-"}
                       </td>
                     ))}
                   </tr>

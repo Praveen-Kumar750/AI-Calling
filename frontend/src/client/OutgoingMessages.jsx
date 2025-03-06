@@ -131,7 +131,7 @@ const OutgoingMessages = () => {
         <h3 className="text-xl font-bold mt-6">Message History</h3>
 
         {/* Table */}
-        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto">
+        <div className="bg-gray-800 p-4 mt-4 rounded-lg overflow-x-auto admin-scroll">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
               <tr className="bg-gray-700">
@@ -150,7 +150,7 @@ const OutgoingMessages = () => {
                 <tr key={index} className="border border-gray-700">
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.contactNo}</td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">
-                    {`${String(new Date(row.date).getDate()).padStart(2, '0')}-${String(new Date(row.date).getMonth() + 1).padStart(2, '0')}-${new Date(row.date).getFullYear()}`}
+                  {new Date(row.date).toLocaleDateString("en-GB")}
                   </td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600 text-center">{row.timeDuration}</td>
                   <td className="px-4 py-2 min-w-[150px] border border-gray-600">{row.conversationTopic}</td>
