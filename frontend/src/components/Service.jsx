@@ -86,7 +86,7 @@ const Service = () => {
             <img
               src="https://storage.googleapis.com/jwelleryrnpsoft/image%2014.png"
               alt="AI Calling Service"
-              className="max-w-[150px] md:max-w-md"
+              className="xs:max-w-[350] sm:max-w-[350px] md:max-w-md"
             />
           </div>
   

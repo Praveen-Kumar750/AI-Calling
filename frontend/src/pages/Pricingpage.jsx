@@ -18,7 +18,7 @@ const Pricingpage = () => {
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Left Section */}
           <div>
-            <h2 className="text-4xl font-bold mb-4">
+            <h2 className="text-4xl font-bold mb-4 mt-[70px]">
               Simple, <span className="text-gray-300">Transparent Pricing</span>
             </h2>
             <p className="text-gray-400 mb-4">

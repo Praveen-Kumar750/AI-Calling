@@ -107,7 +107,7 @@ const InService = () => {
             <img
               src="https://storage.googleapis.com/jwelleryrnpsoft/incoming.png"
               alt="AI In-Coming Service"
-              className="max-w-[150px] md:max-w-md"
+              className="xs:max-w-[350] sm:max-w-[350px] md:max-w-md"
             />
           </div>
         </div>
