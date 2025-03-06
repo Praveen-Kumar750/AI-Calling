@@ -64,7 +64,7 @@ const DashboardIncoming = () => {
         <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => navigate("/dashboard")}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 cursor-pointer rounded-md ${
               location.pathname === "/dashboard" ? "bg-white text-black" : "bg-gray-700"
             }`}
           >
@@ -72,7 +72,7 @@ const DashboardIncoming = () => {
           </button>
           <button
             onClick={() => navigate("/dashboard-outgoing")}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 cursor-pointer rounded-md ${
               location.pathname === "/dashboard-outgoing" ? "bg-white text-black" : "bg-gray-700"
             }`}
           >
@@ -80,7 +80,7 @@ const DashboardIncoming = () => {
           </button>
           <button
             onClick={() => navigate("/dashboard-incoming")}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 cursor-pointer rounded-md ${
               location.pathname === "/dashboard-incoming" ? "bg-white text-black" : "bg-gray-700"
             }`}
           >

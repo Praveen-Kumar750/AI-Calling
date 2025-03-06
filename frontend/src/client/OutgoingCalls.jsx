@@ -80,12 +80,12 @@ const OutgoingCalls = () => {
         {/* Filters */}
         <div className="flex flex-col md:flex-row md:items-center  mt-4 space-y-4 md:space-y-0">
           <div className="space-x-2 flex">
-            <button className="bg-pink-700 hover:bg-pink-800 px-4 py-2 rounded-md">
+            <button className="bg-pink-700 hover:bg-pink-800 cursor-pointer px-4 py-2 rounded-md">
               Call History
             </button>
             <button
               onClick={handleMessageHistory}
-              className="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md"
+              className="bg-gray-700 hover:bg-gray-800 cursor-pointer px-4 py-2 rounded-md"
             >
               Message History
             </button>

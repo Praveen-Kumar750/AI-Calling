@@ -311,12 +311,12 @@ const IncomingCalls = () => {
         <h2 className="text-2xl font-bold mt-4">INCOMING</h2>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-4">
           <div className="space-x-2 md:space-x-4">
-            <button className="bg-pink-700 hover:bg-pink-800 px-3 py-2 rounded-md">
+            <button className="bg-pink-700 hover:bg-pink-800 cursor-pointer px-3 py-2 rounded-md">
               Call History
             </button>
             <button
               onClick={handleMessageHistory}
-              className="bg-gray-700 hover:bg-gray-800 px-3 py-2 rounded-md"
+              className="bg-gray-700 hover:bg-gray-800 cursor-pointer px-3 py-2 rounded-md"
             >
               Message History
             </button>

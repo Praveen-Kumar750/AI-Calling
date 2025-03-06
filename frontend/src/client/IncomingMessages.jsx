@@ -101,11 +101,11 @@ const IncomingMessages = () => {
           <div className="space-x-2 md:space-x-4">
             <button
               onClick={handleCallHistory}
-              className="bg-gray-700 hover:bg-gray-800 px-3 py-2 md:px-4 md:py-2 rounded-md text-sm md:text-base"
+              className="bg-gray-700 hover:bg-gray-800 px-3 py-2 md:px-4 md:py-2 cursor-pointer rounded-md text-sm md:text-base"
             >
               Call History
             </button>
-            <button className="bg-pink-700 hover:bg-pink-800 px-3 py-2 md:px-4 md:py-2 rounded-md text-sm md:text-base">
+            <button className="bg-pink-700 hover:bg-pink-800 px-3 py-2 md:px-4 md:py-2 cursor-pointer rounded-md text-sm md:text-base">
               Message History
             </button>
           </div>

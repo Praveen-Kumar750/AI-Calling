@@ -72,7 +72,7 @@ const ClientNavbar = () => {
           <button
             key={path}
             onClick={() => { navigate(path); setMenuOpen(false); }}
-            className={`text-[20px] md:text-[30px] my-2 md:my-0 px-4 py-2 text-white w-full md:w-auto text-center ${
+            className={`text-[20px] md:text-[30px] my-2 md:my-0 px-4 py-2 text-white w-full md:w-auto cursor-pointer text-center ${
               (name === "Incoming" && location.pathname.startsWith("/incoming-")) ||
               (name === "Outgoing" && location.pathname.startsWith("/outgoing-")) ||
               (name === "Billing" && location.pathname.startsWith("/billing-")) ||
@@ -90,7 +90,7 @@ const ClientNavbar = () => {
       <div className="flex gap-6 items-center relative">
         <button 
           onClick={() => navigate('/file-upload')} 
-          className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 text-white text-lg md:text-xl hover:bg-purple-700"
+          className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 cursor-pointer text-white text-lg md:text-xl hover:bg-purple-700"
         >
           Data <FaArrowUp className="text-lg md:text-xl mt-1" />
         </button>
