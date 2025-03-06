@@ -9,7 +9,7 @@ import axios from "axios";
 
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
-  { key: "date", label: "Date (d-y-m)" },
+  { key: "date", label: "Date (d/y/m)" },
   { key: "timeDuration", label: "Time Duration (mins)" },
   { key: "conversationTopics", label: "Conversation Topics/Purpose" },
   { key: "conversationRaw", label: "Conversation (RAW)" },
@@ -26,27 +26,32 @@ const OutgoingMessages = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/outgoing-messages");
       setCallData(response.data);
+      setFilteredData(response.data);
     };
     fetchData();
   }, []);
 
-  const modifyDates = () => {
-    setCallData((prevData) =>
-      prevData.map((row) => ({
-        ...row,
-        date: new Date(2024, 1, Math.floor(Math.random() * 28) + 1),
-      }))
-    );
-  };
-
   const handleCallHistory = () => {
     navigate("/outgoing-calls");
   };
+
+  useEffect(() => {
+        if (startDate && endDate) {
+          const filtered = callData.filter((call) => {
+            const callDate = new Date(call.date);
+            return callDate >= startDate && callDate <= endDate;
+          });
+          setFilteredData(filtered);
+        } else {
+          setFilteredData(callData);
+        }
+      }, [startDate, endDate, callData]);
 
   const handleSort = (columnKey) => {
     setSortConfig((prev) => ({
@@ -56,7 +61,7 @@ const OutgoingMessages = () => {
     }));
   };
 
-  const sortedData = [...callData].sort((a, b) => {
+  const sortedData = [...filteredData].sort((a, b) => {
     if (!sortConfig.key) return 0;
     let valA = a[sortConfig.key];
     let valB = b[sortConfig.key];
@@ -138,9 +143,6 @@ const OutgoingMessages = () => {
                 {columnOptions.map((col, index) => (
                   <th key={index} className="px-4 py-3 border border-gray-600 min-w-[150px]">
                     {col.label}
-                    {sortConfig.key === col.key && (
-                      <span className="ml-2">{sortConfig.direction === "asc" ? "▲" : "▼"}</span>
-                    )}
                   </th>
                 ))}
               </tr>

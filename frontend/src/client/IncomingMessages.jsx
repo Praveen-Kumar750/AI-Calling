@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
-  { key: "date", label: "Date (d-m-y)" },
+  { key: "date", label: "Date (d/m/y)" },
   { key: "timeDuration", label: "Time Duration (mins)" },
   { key: "conversationRaw", label: "Conversation (RAW)" },
   { key: "conversationSummary", label: "Conversation Summary" },
@@ -144,7 +144,7 @@ const IncomingMessages = () => {
             <label className="block text-gray-400 text-sm">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md w-full md:w-auto"
+              className="bg-gray-800 text-white px-4 py-2 cursor-pointer rounded-md w-full md:w-auto"
             >
               <option value="">Select</option>
               <option value="timeDuration">Time Duration</option>

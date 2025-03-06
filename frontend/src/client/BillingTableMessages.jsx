@@ -15,20 +15,35 @@ const BillingTableMessages = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/billing-logs-messages");
       setData(response.data);
+      setFilteredData(response.data);
     };
     fetchData();
   }, []);
 
   // Date Filtering Logic
-  const filteredData = data.filter((row) => {
-    if (!startDate || !endDate) return true;
-    return new Date(row.date) >= startDate && new Date(row.date) <= endDate;
-  });
+  // const filteredData = data.filter((row) => {
+  //   if (!startDate || !endDate) return true;
+  //   return new Date(row.date) >= startDate && new Date(row.date) <= endDate;
+  // });
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const filtered = data.filter((call) => {
+        const callDate = new Date(call.date);
+        return callDate >= startDate && callDate <= endDate;
+      });
+      setFilteredData(filtered);
+    } else {
+      setFilteredData(data);
+    }
+  }, [startDate, endDate, data]);
+
 
   // Sorting Logic
   const sortedData = [...filteredData].sort((a, b) => {
@@ -123,12 +138,12 @@ const BillingTableMessages = () => {
               onChange={(e) => handleSort(e.target.value)}
               className="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer w-[150px]"
             >
-              <option value="">Sort</option>
-              <option value="date">Date</option>
+              <option value="">Select</option>
+              {/* <option value="date">Date</option> */}
               <option value="timeDuration">Time Duration</option>
               <option value="serviceType">Service Type</option>
-              <option value="sessionCostPerUnitTime">Session Cost</option>
-              <option value="serverCostPerUnitTime">Server Cost</option>
+              {/* <option value="sessionCostPerUnitTime">Session Cost</option> */}
+              {/* <option value="serverCostPerUnitTime">Server Cost</option> */}
               <option value="totalCharge">Total Charge</option>
               <option value="referenceNumber">Reference Number</option>
             </select>
@@ -144,7 +159,7 @@ const BillingTableMessages = () => {
               <tr>
                 {[
                   "Contact No",
-                  "Date (d-m-y)",
+                  "Date (d/m/y)",
                   "Time Duration (mins)",
                   "Service Type",
                   "Session Cost Per Unit Time (Rs.)",
@@ -167,9 +182,7 @@ const BillingTableMessages = () => {
                 <tr key={index} className="bg-gray-900 text-center">
                   <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.contactNo}</td>
                   <td className="px-4 py-2 border border-gray-700 min-w-[150px]">
-                    {`${String(new Date(row.date).getDate()).padStart(2, "0")}-${String(
-                      new Date(row.date).getMonth() + 1
-                    ).padStart(2, "0")}-${new Date(row.date).getFullYear()}`}
+                  {new Date(row.date).toLocaleDateString("en-GB")}
                   </td>
                   <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.timeDuration}</td>
                   <td className="px-4 py-2 border border-gray-700 min-w-[150px]">{row.serviceType}</td>

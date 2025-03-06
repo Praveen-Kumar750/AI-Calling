@@ -7,7 +7,7 @@ import axios from "axios";
 
 const columnOptions = [
   { key: "contactNo", label: "Contact No" },
-  { key: "date", label: "Date (d-m-y)" },
+  { key: "date", label: "Date (d/m/y)" },
   { key: "timeDuration", label: "Time Duration (mins)" },
   { key: "conversationTopic", label: "Conversation Topics/Purpose" },
   { key: "conversationRaw", label: "Conversation (RAW)" },
@@ -24,6 +24,7 @@ const OutgoingCalls = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +33,7 @@ const OutgoingCalls = () => {
           "http://localhost:5000/api/outgoing-calls"
         );
         setCallData(response.data);
+        setFilteredData(response.data);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -43,6 +45,18 @@ const OutgoingCalls = () => {
     navigate("/outgoing-messages");
   };
 
+  useEffect(() => {
+      if (startDate && endDate) {
+        const filtered = callData.filter((call) => {
+          const callDate = new Date(call.date);
+          return callDate >= startDate && callDate <= endDate;
+        });
+        setFilteredData(filtered);
+      } else {
+        setFilteredData(callData);
+      }
+    }, [startDate, endDate, callData]);
+
   const handleSort = (columnKey) => {
     setSortConfig((prev) => ({
       key: columnKey,
@@ -51,7 +65,7 @@ const OutgoingCalls = () => {
     }));
   };
 
-  const sortedData = [...callData].sort((a, b) => {
+  const sortedData = [...filteredData].sort((a, b) => {
     if (!sortConfig.key) return 0;
 
     let valA = a[sortConfig.key];
@@ -125,7 +139,7 @@ const OutgoingCalls = () => {
             <label className="block text-gray-400 text-sm mt-2">Sort By</label>
             <select
               onChange={(e) => handleSort(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-md w-full sm:w-auto"
+              className="bg-gray-800 text-white px-4 py-2 cursor-pointer rounded-md w-full sm:w-auto"
             >
               <option value="">Select</option>
               <option value="timeDuration">Time Duration</option>
@@ -144,11 +158,6 @@ const OutgoingCalls = () => {
                     className="px-2 md:px-4 py-2 border border-gray-600 min-w-[150px]"
                   >
                     {col.label}
-                    {sortConfig.key === col.key && (
-                      <span className="ml-2">
-                        {sortConfig.direction === "asc" ? "▲" : "▼"}
-                      </span>
-                    )}
                   </th>
                 ))}
               </tr>
