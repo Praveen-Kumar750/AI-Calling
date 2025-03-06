@@ -125,62 +125,15 @@ const Dashboard = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/api/billing-logs")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setBillingData(data);
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("dashboardReloaded");
+  
+    if (!hasReloaded) {
+      sessionStorage.setItem("dashboardReloaded", "true");
+      window.location.reload();
+    }
+  }, []);
 
-  //       const monthlyData = {};
-  //       let totalIncomingDuration = 0;
-  //       let totalOutgoingDuration = 0;
-  //       let incomingCount = 0;
-  //       let outgoingCount = 0;
-  //       let totalIncomingCharges = 0;
-  //       let totalOutgoingCharges = 0;
-
-  //       data.forEach(({ date, serviceType, timeDuration, totalCharge }) => {
-  //         const month = new Date(date).toLocaleString("en-US", { month: "short" });
-
-  //         if (!monthlyData[month]) {
-  //           monthlyData[month] = { name: month, incoming: 0, outgoing: 0, cost: 0 };
-  //         }
-
-  //         if (serviceType === "Incoming") {
-  //           monthlyData[month].incoming += 1;
-  //           totalIncomingDuration += parseInt(timeDuration, 10);
-  //           totalIncomingCharges += totalCharge;
-  //           incomingCount++;
-  //         } else if (serviceType === "Outgoing") {
-  //           monthlyData[month].outgoing += 1;
-  //           totalOutgoingDuration += parseInt(timeDuration, 10);
-  //           totalOutgoingCharges += totalCharge;
-  //           outgoingCount++;
-  //         }
-
-  //         monthlyData[month].cost += totalCharge;
-  //       });
-
-  //       const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  //       const sortedData = Object.values(monthlyData).sort((a, b) => monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name));
-
-  //       setCallVolumeData(sortedData);
-  //       setCostData(sortedData);
-  //       setTotalIncomingCalls(incomingCount);
-  //       setTotalOutgoingCalls(outgoingCount);
-  //       setTotalIncomingCost(totalIncomingCharges);
-  //       setTotalOutgoingCost(totalOutgoingCharges);
-
-  //       setAvgIncomingDuration(
-  //         incomingCount > 0 ? `${Math.floor(totalIncomingDuration / incomingCount)}m ${totalIncomingDuration % 60}s` : "0m 0s"
-  //       );
-
-  //       setAvgOutgoingDuration(
-  //         outgoingCount > 0 ? `${Math.floor(totalOutgoingDuration / outgoingCount)}m ${totalOutgoingDuration % 60}s` : "0m 0s"
-  //       );
-  //     })
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
